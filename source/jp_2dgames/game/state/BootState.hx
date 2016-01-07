@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.state.PlayInitState;
 import flixel.FlxG;
 import flixel.FlxState;
 
@@ -29,7 +30,7 @@ class BootState extends FlxState {
   override public function update():Void {
     super.update();
 
-    FlxG.switchState(new TitleState());
-//    FlxG.switchState(new PlayState());
+//    FlxG.switchState(new TitleState());
+    FlxG.switchState(new PlayInitState());
   }
 }
