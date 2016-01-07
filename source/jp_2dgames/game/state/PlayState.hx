@@ -99,13 +99,26 @@ class PlayState extends FlxState {
     // プレイヤーをカメラが追いかける
     FlxG.camera.follow(_player, FlxCamera.STYLE_TOPDOWN_TIGHT);
 
+    /*
+    var spr = new FlxSprite();
+    spr.loadGraphic(Reg.PATH_IMAGE_CHAR_SET, true, 16, 16);
+    var anim = [for(i in 0...4) i+48];
+    spr.animation.add("play", anim, 4);
+    spr.animation.play("play");
+    this.add(spr);
+    */
+
     _captionUI.show("READY", false);
     Snd.playSe("levelup");
     new FlxTimer(2, function(timer:FlxTimer) {
-      _start(3);
+//      _start(3);
+      _start(0);
     });
   }
 
+  /**
+   * カウントダウン
+   **/
   private function _start(cnt:Int):Void {
 
     if(cnt <= 0) {
