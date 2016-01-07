@@ -1,4 +1,5 @@
 package jp_2dgames.lib;
+import flixel.util.FlxAngle;
 class MyMath {
 
   /**
@@ -22,4 +23,19 @@ class MyMath {
     return sub;
   }
 
+  /***
+   * サインの値を求める
+   * @param deg 角度
+   **/
+  public static function sinEx(deg:Float):Float {
+    return Math.sin(deg * FlxAngle.TO_RAD);
+  }
+
+  /**
+   * コサインの値を求める
+   * @param deg 角度
+   **/
+  public static function cosEx(deg:Float):Float {
+    return Math.cos(deg * FlxAngle.TO_RAD);
+  }
 }

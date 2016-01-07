@@ -40,11 +40,8 @@ class Snd {
   /**
    * キャッシュする
    **/
-  public static function cache():Void {
-
-    FlxG.sound.volume = 1;
-
-    FlxG.sound.cache("001");
+  public static function cache(name:String):Void {
+    FlxG.sound.cache(name);
   }
 
   /**
@@ -131,12 +128,19 @@ class Snd {
     }
     playMusic(_bgmprev);
   }
+
+  /**
+   * サウンドファイル読み込み
+   **/
+  public static function load(name:String):FlxSound {
+    return FlxG.sound.load(name);
+  }
 }
 
-class SoundInfo {
+private class SoundInfo {
+  public var data:FlxSound = null;
+  public var time:Float = 0;
 
   public function new() {
   }
-  public var data:FlxSound = null;
-  public var time:Float = 0;
 }

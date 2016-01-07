@@ -118,15 +118,15 @@ class CsvLoader {
    * 特定のキーに対応する値を持つ値を取得する
    * @return 見つからなかったらエラー
    **/
-  public function searchItem(key:String, name:String, item:String, bExcept=true):String {
+  public function searchItem(key:String, val:String, item:String, bExcept=true):String {
     for(data in _datas) {
-      if(data[key] == name) {
+      if(data[key] == val) {
         return data[item];
       }
     }
 
     if(bExcept) {
-      throw 'Error: Not found key="${key}" name="${name}" item="${item}"';
+      throw 'Error: Not found key="${key}" name="${val}" item="${item}"';
     }
     else {
       // 例外を返さない

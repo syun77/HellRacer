@@ -1,6 +1,5 @@
 package jp_2dgames.game.state;
 
-import jp_2dgames.lib.Snd;
 import flixel.FlxG;
 import flixel.FlxState;
 
@@ -15,7 +14,6 @@ class BootState extends FlxState {
   override public function create():Void {
     super.create();
 
-    Snd.cache();
   }
 
   /**

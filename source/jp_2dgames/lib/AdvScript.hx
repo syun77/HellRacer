@@ -60,8 +60,11 @@ class AdvScript {
   public function popStack():Int {
     return _stack.pop();
   }
-  private function _pushStack(v:Int):Void {
+  public function pushStack(v:Int):Void {
     _stack.push(v);
+  }
+  public function pushStackBool(b:Bool):Void {
+    _stack.push(if(b) 1 else 0);
   }
 
   /**
@@ -180,7 +183,7 @@ class AdvScript {
     if(_bLog) {
       trace('[AI] INT ${p0}');
     }
-    _pushStack(p0);
+    pushStack(p0);
   }
   private function _SET(param:Array<String>):Void {
     var op  = Std.parseInt(param[0]);
@@ -214,7 +217,7 @@ class AdvScript {
   private function _VAR(param:Array<String>):Void {
     var idx = Std.parseInt(param[0]);
     var val = getVar(idx);
-    _pushStack(val);
+    pushStack(val);
     if(_bLog) {
       trace('[AI] VAR $$${idx} is ${val} push ${_vars}');
     }
@@ -228,11 +231,11 @@ class AdvScript {
     }
     if(left == right) {
       // 真
-      _pushStack(1);
+      pushStack(1);
     }
     else {
       // 偽
-      _pushStack(0);
+      pushStack(0);
     }
   }
 
@@ -260,7 +263,9 @@ class AdvScript {
     if(_bLog) {
       trace('[AI] JUMP now(${_pc}) -> next(${address})');
     }
-    _pc = address;
+
+    // アドレスは -1 した値
+    _pc = address - 1;
   }
 
   private function _END(param:Array<String>):Void {
