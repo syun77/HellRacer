@@ -15,6 +15,9 @@ class Spike extends Token {
     state.remove(_parent);
     _parent = null;
   }
+  public static function forEachAlive(func:Spike->Void):Void {
+    _parent.forEachAlive(func);
+  }
   public static function add(X:Float, Y:Float):Spike {
     var spike:Spike = _parent.recycle();
     spike.init(X, Y);

@@ -35,6 +35,7 @@ class Player extends Token {
    * 死亡演出
    **/
   public function vanish():Void {
+
     Particle.start(PType.Circle, xcenter, ycenter, FlxColor.RED);
     kill();
     Snd.playSe("destroy2");

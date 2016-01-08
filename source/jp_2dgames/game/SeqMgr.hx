@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Spike;
 import jp_2dgames.lib.Snd;
 import jp_2dgames.game.token.Token;
 import jp_2dgames.game.token.Enemy;
@@ -63,9 +64,23 @@ class SeqMgr {
   }
 
   /**
+   * プレイヤー死亡
+   **/
+  private function _dead():Void {
+
+    if(_player.exists == false) {
+      // すでに死んでいたら何もしない
+      return;
+    }
+
+    _player.vanish();
+  }
+
+  /**
    * 衝突判定
    **/
   private function _checkCollide():Void {
+
     // プレイヤー vs アイテム
     Item.forEachAlive(function(item:Item) {
       if(Token.checkHitCircle(_player, item)) {
@@ -77,10 +92,20 @@ class SeqMgr {
         Snd.playSe("powerup");
       }
     });
+
     // プレイヤー vs 敵
     Enemy.forEachAlive(function(e:Enemy) {
       if(Token.checkHitCircle(_player, e)) {
-        _player.vanish();
+        // プレイヤー死亡
+        _dead();
+      }
+    });
+
+    // プレイヤー vs 鉄球
+    Spike.forEachAlive(function(spike:Spike) {
+      if(Token.checkHitCircle(_player, spike)) {
+        // プレイヤー死亡
+        _dead();
       }
     });
   }
