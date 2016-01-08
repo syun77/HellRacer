@@ -15,6 +15,7 @@
 
     <!--These window settings apply to all targets-->
     <window width="480" height="852" fps="60" background="#000000" hardware="true" vsync="true"/>
+    <window width="240" height="426" fps="60" background="#000000" hardware="true" vsync="true"/>
 
 
     <!--Web-specific-->

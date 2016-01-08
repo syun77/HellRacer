@@ -5,6 +5,9 @@ package jp_2dgames.game;
  **/
 class CharSet {
 
+  public static inline var WIDTH:Int = 16;
+  public static inline var HEIGHT:Int = 16;
+
   public static inline var OFS_MIKU:Int = 0;
   public static inline var OFS_WALL:Int = 16;
   public static inline var OFS_WALL2:Int = 17;
@@ -45,7 +48,7 @@ class CharSet {
   public static inline var OFS_OWATA:Int = 82;
   public static inline var OFS_CHABU:Int = 84;
   public static inline var OFS_BULLET:Int = 96;
-  public static inline var OFS_BULLET:Int = 98;
+  public static inline var OFS_BULLET2:Int = 98;
 
   public function new() {
   }

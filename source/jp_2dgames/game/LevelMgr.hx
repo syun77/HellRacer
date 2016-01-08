@@ -1,4 +1,5 @@
 package jp_2dgames.game;
+import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.token.Item;
 import jp_2dgames.game.token.Enemy;
 import flixel.util.FlxRandom;
@@ -52,6 +53,9 @@ class LevelMgr extends FlxBasic {
       }
       var spd = base * ratio;
       Enemy.add(px, py, spd);
+
+      // TODO: 鉄球も出してみる
+      Spike.add(px, py);
     }
 
     // アイテムの出現
