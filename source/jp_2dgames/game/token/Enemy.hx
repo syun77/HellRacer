@@ -1,7 +1,6 @@
 package jp_2dgames.game.token;
 
 import flixel.FlxState;
-import flixel.group.FlxTypedGroup;
 import flixel.FlxSprite;
 
 /**
@@ -9,12 +8,9 @@ import flixel.FlxSprite;
  **/
 class Enemy extends Token {
 
-  static var _parent:FlxTypedGroup<Enemy> = null;
+  static var _parent:TokenMgr<Enemy> = null;
   public static function createParent(state:FlxState):Void {
-    _parent = new FlxTypedGroup<Enemy>(32);
-    for(i in 0..._parent.maxSize) {
-      _parent.add(new Enemy());
-    }
+    _parent = new TokenMgr<Enemy>(32, Enemy);
     state.add(_parent);
   }
   public static function destroyParent(state:FlxState):Void {
