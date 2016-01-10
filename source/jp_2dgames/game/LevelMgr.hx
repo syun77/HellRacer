@@ -62,7 +62,9 @@ class LevelMgr extends FlxBasic {
     if(_time%350 == 1) {
       // TODO:
       var tmx = new TmxLoader();
-      tmx.load("assets/data/levels/001.tmx");
+      var id = FlxRandom.intRanged(1, 10);
+      var path = Reg.getMapData(id);
+      tmx.load(path);
       var layer = tmx.getLayer(0);
       layer.forEach(function(i:Int, j:Int, val:Int) {
         j = (tmx.height - j) - 1;

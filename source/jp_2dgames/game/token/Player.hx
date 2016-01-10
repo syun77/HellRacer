@@ -10,7 +10,7 @@ import flixel.FlxSprite;
  **/
 class Player extends Token {
 
-  static inline var DECAY_ROLL = 0.01;
+  static inline var DECAY_ROLL = 0.1;
 
   private var _speed:Float = 0;
   public function getSpeed():Float {

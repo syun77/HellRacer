@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.lib.TextUtil;
 class Reg {
   // 車
   public static var PATH_IMAGE_CAR = "assets/images/car.png";
@@ -18,5 +19,11 @@ class Reg {
   public static var PATH_IMAGE_CHAR_SET = "assets/images/charset.png";
 
   // プレイヤー初速
-  public static var SPEED_INIT:Float = 100;
+  public static inline var SPEED_INIT:Float = 30.0;
+
+  // マップデータのパス
+  public static function getMapData(id:Int):String {
+    var map = TextUtil.fillZero(id, 3);
+    return 'assets/data/levels/${map}.tmx';
+  }
 }
