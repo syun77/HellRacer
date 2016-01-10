@@ -8,7 +8,7 @@ class Spike extends Token {
 
   static var _parent:TokenMgr<Spike> = null;
   public static function createParent(state:FlxState):Void {
-    _parent = new TokenMgr<Spike>(32, Spike);
+    _parent = new TokenMgr<Spike>(128, Spike);
     state.add(_parent);
   }
   public static function destroyParent(state:FlxState):Void {

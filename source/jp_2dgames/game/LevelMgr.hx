@@ -27,11 +27,6 @@ class LevelMgr extends FlxBasic {
 
     // 初期状態は無効にしておく
     active = false;
-
-    // TODO: マップデータ読み込みテスト
-    var tmx = new TmxLoader();
-    tmx.load("assets/data/levels/001.tmx");
-    tmx.getLayer(0).dump();
   }
 
   /**
@@ -65,16 +60,18 @@ class LevelMgr extends FlxBasic {
 
     // 鉄球の出現
     if(_time%350 == 1) {
-      // TODO: 鉄球も出してみる
-      var px = Wall.randomX();
-      for(i in 0...16) {
-        var x:Float = i * 16 + 44;
-        x = px;
-        var py = FlxG.camera.scroll.y - 32;
-        var y:Float = i * -16 + py;
-        Spike.add(x, y);
-      }
-
+      // TODO:
+      var tmx = new TmxLoader();
+      tmx.load("assets/data/levels/001.tmx");
+      var layer = tmx.getLayer(0);
+      layer.forEach(function(i:Int, j:Int, val:Int) {
+        j = (tmx.height - j) - 1;
+        var x = Wall.CHIP_LEFT + i * 16;
+        var y = FlxG.camera.scroll.y - 16 - (16 * j);
+        if(val == 1) {
+          Spike.add(x, y);
+        }
+      });
     }
 
     // アイテムの出現

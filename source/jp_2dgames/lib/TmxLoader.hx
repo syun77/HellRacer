@@ -86,10 +86,10 @@ class TmxLoader {
   private var _height:Int = 0;
   private var _tileWidth:Int = 0;
   private var _tileHeight:Int = 0;
-  public var width(get_width, never):Int;
-  public var height(get_height, never):Int;
-  public var tileWidth(get_tileWidth, never):Int;
-  public var tileHeight(get_tileHeight, never):Int;
+  public var width(get_width, never):Int; // 横方向のタイルの数
+  public var height(get_height, never):Int; // 縦方向のタイルの数
+  public var tileWidth(get_tileWidth, never):Int; // タイルの横幅
+  public var tileHeight(get_tileHeight, never):Int; // タイルの縦幅
 
   public function new() {
     // 読み込み失敗時のテンポラリ
