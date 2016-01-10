@@ -55,7 +55,12 @@ class LevelMgr extends FlxBasic {
       Enemy.add(px, py, spd);
 
       // TODO: 鉄球も出してみる
-      Spike.add(px, py);
+      for(i in 0...16) {
+        var x:Float = i * 16 + 44;
+        x = px;
+        var y:Float = i * -16 + py;
+        Spike.add(x, y);
+      }
     }
 
     // アイテムの出現
