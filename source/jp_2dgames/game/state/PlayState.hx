@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.util.ScrollTarget;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.gui.CaptionUI;
 import jp_2dgames.game.gui.GameUI;
@@ -100,8 +101,10 @@ class PlayState extends FlxState {
     _captionUI = new CaptionUI();
     this.add(_captionUI);
 
-    // プレイヤーをカメラが追いかける
-    FlxG.camera.follow(_player, FlxCamera.STYLE_TOPDOWN_TIGHT);
+    // カメラが追いかける設定
+    var scrollTarget = new ScrollTarget(_player);
+    this.add(scrollTarget);
+    FlxG.camera.follow(scrollTarget, FlxCamera.STYLE_TOPDOWN_TIGHT);
 
     _captionUI.show("READY", false);
     Snd.playSe("levelup");
