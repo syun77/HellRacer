@@ -1,4 +1,6 @@
 package jp_2dgames.game;
+import jp_2dgames.lib.TmxLoader;
+import jp_2dgames.lib.Array2D;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.token.Item;
 import jp_2dgames.game.token.Enemy;
@@ -25,6 +27,11 @@ class LevelMgr extends FlxBasic {
 
     // 初期状態は無効にしておく
     active = false;
+
+    // TODO: マップデータ読み込みテスト
+    var tmx = new TmxLoader();
+    tmx.load("assets/data/levels/001.tmx");
+    tmx.getLayer(0).dump();
   }
 
   /**
@@ -54,13 +61,20 @@ class LevelMgr extends FlxBasic {
       var spd = base * ratio;
       Enemy.add(px, py, spd);
 
+    }
+
+    // 鉄球の出現
+    if(_time%350 == 1) {
       // TODO: 鉄球も出してみる
+      var px = Wall.randomX();
       for(i in 0...16) {
         var x:Float = i * 16 + 44;
         x = px;
+        var py = FlxG.camera.scroll.y - 32;
         var y:Float = i * -16 + py;
         Spike.add(x, y);
       }
+
     }
 
     // アイテムの出現
