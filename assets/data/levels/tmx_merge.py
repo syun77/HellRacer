@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 import xml.dom.minidom
 
 class Array2D:
@@ -41,7 +42,7 @@ class TmxLoader:
 		# 初期化
 		self.width = 0
 		self.height = 0;
-		self.layers = []
+		self.layers = {}
 
 	def load(self, filepath):
 		# ロード
@@ -60,15 +61,16 @@ class TmxLoader:
 		# layerノードを解析
 		self.width = int(node.getAttribute("width"))
 		self.height = int(node.getAttribute("height"))
+		name = node.getAttribute("name") # レイヤー名
 		for child in node.childNodes:
 			if child.nodeType == node.ELEMENT_NODE:
 				if child.tagName == "data":
 					# dataノード解析
-					self.parseLayerData(child)
+					layer = self.parseLayerData(child)
+					self.layers[name] = layer
 
 	def parseLayerData(self, node):
 		# layer.dataを解析
-		# TODO: 単一レイヤーのみ対応
 		# layer生成
 		layer = Array2D(self.width, self.height)
 		data = node.firstChild.data.strip()
@@ -83,17 +85,75 @@ class TmxLoader:
 				layer.set(col, row, int(v))
 				col += 1
 			row += 1
-		# layerを追加
-		self.layers.append(layer)
+		return layer
+
+	def getLayer(self, name):
+		return self.layers[name]
 
 	def dump(self):
 		print "TmxLoader: (width,height)=(%d,%d)"%(self.width, self.height)
-		for layer in self.layers:
+		for name in self.layers.keys():
+			print "[%s]"%name
+			layer = self.getLayer(name)
 			layer.dump()
 
+def merge(idList):
+	layers = []
+	for id in idList:
+		filename = "%03d.tmx"%id
+		tmx = TmxLoader(filename)
+		layer = tmx.getLayer("map")
+		layers.append(layer)
+	# 逆順にする
+	layers.reverse()
+
+	height = 0
+	strData = ""
+	for layer in layers:
+		height += layer.height
+		for j in range(layer.height):
+			for i in range(layer.width):
+				strData += "%d,"%layer.get(i, j)
+			strData += "\n"
+	strData = strData.strip()[0:-1]
+
+	# tmxのテンプレート定義
+	str = """<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="9" height="%d" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="4" columns="4">
+  <image source="tileset.png" width="64" height="16"/>
+ </tileset>
+ <layer name="map" width="9" height="%d">
+  <data encoding="csv">
+%s
+</data>
+ </layer>
+</map>
+"""%(height, height, strData)
+
+	return str
+
+def usage():
+	# 使い方
+	print "Usage: tmx_merge.py [idList] [output]"
+
 def main():
-	tmx = TmxLoader("001.tmx")
-	tmx.dump()
+	argc = len(sys.argv)
+
+	if argc < 3:
+		usage()
+		quit()
+
+	# マージするIDのリスト
+	idList = sys.argv[1].split(",")
+	# 出力ファイル名
+	outFile = sys.argv[2]
+	tmx = merge(idList)
+	f = open(outFile, "w")
+	f.write(tmx)
+	f.close()
+
+	print "Done."
 
 if __name__ == '__main__':
 	main()
