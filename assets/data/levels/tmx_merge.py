@@ -3,6 +3,7 @@
 
 import sys
 import xml.dom.minidom
+import yaml
 
 class Array2D:
 	def __init__(self, width, height):
@@ -135,23 +136,35 @@ def merge(idList):
 
 def usage():
 	# 使い方
-	print "Usage: tmx_merge.py [idList] [output]"
+	print "Usage: tmx_merge.py [yaml]"
+
+def parseYaml(filepath):
+	f = open(filepath, "r")
+	data = yaml.load(f)
+	f.close()
+	for level in data:
+		tmp = level["idList"].split(",")
+		idList = []
+		for s in tmp:
+			idList.append(int(s))
+		output = level["output"]
+		tmx = merge(idList)
+		f = open(output, "w")
+		f.write(tmx)
+		f.close()
+		print "%s -> %s"%(level["idList"], level["output"])
 
 def main():
 	argc = len(sys.argv)
-
-	if argc < 3:
+	# 引数チェック
+	if argc < 2:
+		# 足りない
 		usage()
 		quit()
 
-	# マージするIDのリスト
-	idList = sys.argv[1].split(",")
-	# 出力ファイル名
-	outFile = sys.argv[2]
-	tmx = merge(idList)
-	f = open(outFile, "w")
-	f.write(tmx)
-	f.close()
+	# 設定ファイル
+	config = sys.argv[1]
+	parseYaml(config)
 
 	print "Done."
 
