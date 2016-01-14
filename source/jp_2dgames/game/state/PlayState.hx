@@ -59,7 +59,7 @@ class PlayState extends FlxState {
     this.add(_player);
 
     // レベル
-    _levelMgr = new LevelMgr(_player.getSpeed);
+    _levelMgr = new LevelMgr(_player);
     this.add(_levelMgr);
 
     // ゲームシーケンス管理

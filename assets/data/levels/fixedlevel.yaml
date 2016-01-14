@@ -1,8 +1,8 @@
-# EASY
+# 001
 -
   idList: "1,2,3"
-  output: fixed_easy.tmx
-# NORMAL
+  output: fixed_001.tmx
+# 002
 -
   idList: "4,5,6"
-  output: fixed_normal.tmx
+  output: fixed_002.tmx

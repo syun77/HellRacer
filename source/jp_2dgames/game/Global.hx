@@ -5,6 +5,9 @@ package jp_2dgames.game;
  **/
 class Global {
 
+  // レベル
+  static var _level:Int;
+
   // スコア
   static var _score:Int;
 
@@ -12,7 +15,30 @@ class Global {
    * ゲーム開始前の初期化
    **/
   public static function init():Void {
+    _level = 1;
+  }
+
+  /**
+   * レベル開始時の初期化
+   **/
+  public static function initLevel():Void {
     _score = 0;
+  }
+
+  /**
+   * レベルの取得
+   **/
+  public static function getLevel():Int {
+    return _level;
+  }
+
+  /**
+   * レベルを次に進める
+   * @return 次のレベルが存在しない場合はfalse
+   **/
+  public static function nextLevel():Bool {
+    _level++;
+    return false;
   }
 
   /**

@@ -26,4 +26,10 @@ class Reg {
     var map = TextUtil.fillZero(id, 3);
     return 'assets/data/levels/${map}.tmx';
   }
+
+  // 固定マップデータのパス
+  public static function getFixedMapPath():String {
+    var map = TextUtil.fillZero(Global.getLevel(), 3);
+    return 'assets/data/levels/fixed_${map}.tmx';
+  }
 }
