@@ -14,7 +14,7 @@ class PlayInitState extends FlxState {
   override public function create():Void {
     super.create();
 
-    // グローバルデータ初期化
+    // グローバル初期化
     Global.init();
   }
 

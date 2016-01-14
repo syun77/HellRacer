@@ -47,6 +47,9 @@ class PlayState extends FlxState {
   override public function create():Void {
     super.create();
 
+    // ゲームデータ初期化
+    Global.initLevel();
+
     // 制限時間
     LimitMgr.create(this);
     LimitMgr.pause();

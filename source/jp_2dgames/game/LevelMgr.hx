@@ -19,6 +19,9 @@ private enum Mode {
  **/
 class LevelMgr extends FlxBasic {
 
+  public static inline var TILE_WIDTH:Int = 16;
+  public static inline var TILE_HEIGHT:Int = 16;
+
   // 経過フレーム数
   var _time:Int = 0;
   // プレイヤー
@@ -27,8 +30,6 @@ class LevelMgr extends FlxBasic {
   var _mode:Mode;
   // マップデータ
   var _map:Array2D = null;
-  // 前回の座標
-  var _ybase_prev:Float = 0.0;
 
   /**
    * コンストラクタ
@@ -88,7 +89,7 @@ class LevelMgr extends FlxBasic {
     switch(_mode) {
       case Mode.Fixed:
         // 固定マップ
-        _appearFixedSpike(_player.y);
+        _appearFixedSpike();
 
       case Mode.Random:
         // TODO:
@@ -103,7 +104,7 @@ class LevelMgr extends FlxBasic {
     if(_time%350 == 0) {
       var px = FlxG.width/2 + FlxRandom.intRanged(-32, 32);
       var py = FlxG.camera.scroll.y - 32;
-      var spd = _funcSpeed() * 0.7;
+      var spd = _player.getSpeed() * 0.7;
       Item.add(px, py, spd);
     }
   }
@@ -111,8 +112,21 @@ class LevelMgr extends FlxBasic {
   /**
    * 固定鉄球の出現
    **/
-  private function _appearFixedSpike(ybase:Float):Void {
-    _ybase_prev = ybase;
+  private function _appearFixedSpike():Void {
+    var py:Int = Math.floor(FlxG.camera.scroll.y / TILE_HEIGHT);
+    py = _map.height + py;
+    var h:Int  = Math.floor(FlxG.height / TILE_HEIGHT);
+    for(j in py...(py+h)) {
+      for(i in 0..._map.width) {
+        var v = _map.get(i, j);
+        if(v == 1) {
+          var x = i * TILE_WIDTH + Wall.CHIP_LEFT;
+          var y = (_map.height-j) * -TILE_HEIGHT;
+          Spike.add(x, y);
+          _map.set(i, j, 0);
+        }
+      }
+    }
   }
 
   /**
