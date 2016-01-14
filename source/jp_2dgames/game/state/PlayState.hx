@@ -27,6 +27,7 @@ private enum State {
   Init;     // 初期化
   Main;     // メイン
   Gameover; // ゲームオーバー
+  Goal;     // ゴールにたどりついた
 }
 
 /**
@@ -66,7 +67,7 @@ class PlayState extends FlxState {
     this.add(_levelMgr);
 
     // ゲームシーケンス管理
-    _seqMgr = new SeqMgr(_player);
+    _seqMgr = new SeqMgr(_player, _levelMgr);
 
     // アイテム
     Item.createParent(this);
@@ -175,6 +176,7 @@ class PlayState extends FlxState {
       case State.Main:
         _updateMain();
       case State.Gameover:
+      case State.Goal:
     }
 
     _updateDebug();
@@ -212,6 +214,13 @@ class PlayState extends FlxState {
         _change(State.Gameover);
         _player.active = false;
         _captionUI.show("TIME IS UP", true);
+        _showButton();
+
+      case SeqMgr.RET_GOAL:
+        // ゴールにたどりついた
+        _change(State.Goal);
+        _player.active = false;
+        _captionUI.show("COMPLETE", true);
         _showButton();
     }
   }

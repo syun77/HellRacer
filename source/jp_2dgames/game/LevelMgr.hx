@@ -57,6 +57,18 @@ class LevelMgr extends FlxBasic {
   }
 
   /**
+   * ゴールしたかどうか
+   **/
+  public function isGoal():Bool {
+    if(_player.y < _map.height * -TILE_HEIGHT) {
+      // ゴールした
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
    * 開始
    **/
   public function start():Void {

@@ -13,23 +13,26 @@ import jp_2dgames.game.token.Player;
 class SeqMgr {
 
   // procの返却値
-  public static inline var RET_NONE:Int = 0;
-  public static inline var RET_GAMEOVER:Int = 1;
-  public static inline var RET_TIMEISUP:Int = 2;
+  public static inline var RET_NONE:Int     = 0; // 特に何もなし
+  public static inline var RET_GAMEOVER:Int = 1; // ゲームオーバー
+  public static inline var RET_TIMEISUP:Int = 2; // 時間切れ
+  public static inline var RET_GOAL:Int     = 3; // ゴールにたどりついた
 
   // スコア加算と見なされる距離
   static inline var SCORE_DISTANCE:Int = 100;
 
 
   var _player:Player;
-  var _yprev:Float = 0;
-  var _yincrease:Float = 0;
+  var _levelMgr:LevelMgr;
+  var _yprev:Float = 0.0;
+  var _yincrease:Float = 0.0;
 
   /**
    * コンストラクタ
    **/
-  public function new(player:Player) {
+  public function new(player:Player, levelMgr:LevelMgr) {
     _player = player;
+    _levelMgr = levelMgr;
     _yprev = _player.y;
   }
 
@@ -49,6 +52,11 @@ class SeqMgr {
 
     // 衝突判定
     _checkCollide();
+
+    if(_levelMgr.isGoal()) {
+      // ゴールにたどりついた
+      return RET_GOAL;
+    }
 
     if(_player.alive == false) {
       // ゲームオーバー
