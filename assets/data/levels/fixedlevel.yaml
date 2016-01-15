@@ -6,3 +6,7 @@
 -
   idList: "4,5,6"
   output: fixed_002.tmx
+# 003
+-
+  idList: "7,8,9"
+  output: fixed_003.tmx

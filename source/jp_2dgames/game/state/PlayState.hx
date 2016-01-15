@@ -221,18 +221,26 @@ class PlayState extends FlxState {
         _change(State.Goal);
         _player.active = false;
         _captionUI.show("COMPLETE", true);
-        _showButton();
+        _showButton(function() {
+          // 次のステージに進む
+          Global.nextLevel();
+          FlxG.resetState();
+        });
     }
   }
 
 
   // タイトルへ戻るボタンを表示
-  private function _showButton():Void {
+  private function _showButton(?cbFunc:Void->Void):Void {
+    if(cbFunc == null) {
+      // 指定がなければタイトルに戻る
+      cbFunc = function() {
+        FlxG.switchState(new TitleState());
+      };
+    }
     var px = FlxG.width/2;
     var py = FlxG.height/2;
-    var btn = new FlxButton(px, py, "Back to TITLE", function() {
-      FlxG.switchState(new TitleState());
-    });
+    var btn = new FlxButton(px, py, "Back to TITLE", cbFunc);
     btn.x -= btn.width/2;
     btn.y -= btn.height/2;
     this.add(btn);
