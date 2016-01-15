@@ -59,7 +59,7 @@ class PlayState extends FlxState {
     this.add(new Bg());
 
     // プレイヤー
-    _player = new Player(FlxG.width/2, FlxG.height/2);
+    _player = new Player(FlxG.width/2, FlxG.height/4);
     this.add(_player);
 
     // レベル

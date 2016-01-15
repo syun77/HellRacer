@@ -107,7 +107,7 @@ class LevelMgr extends FlxBasic {
    **/
   private function _appearFixedSpike():Void {
     var py:Int = Math.floor(FlxG.camera.scroll.y / TILE_HEIGHT);
-    py = _map.height + py;
+    py += _map.height;
     var h:Int  = Math.floor(FlxG.height / TILE_HEIGHT);
     for(j in py...(py+h)) {
       for(i in 0..._map.width) {
@@ -134,7 +134,8 @@ class LevelMgr extends FlxBasic {
     var py = _ymap + (_map.height * -TILE_HEIGHT);
     // 2つぶん空ける
     py -= TILE_HEIGHT*2;
-    if(FlxG.camera.scroll.y < py) {
+    var scrollY = FlxG.camera.scroll.y;
+    if(scrollY < py) {
       return true;
     }
 
