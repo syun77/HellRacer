@@ -110,6 +110,9 @@ class PlayState extends FlxState {
     this.add(scrollTarget);
     FlxG.camera.follow(scrollTarget, FlxCamera.STYLE_TOPDOWN_TIGHT);
 
+    // 鉄球を出現させておく
+    _levelMgr.update();
+
     _captionUI.show("READY", false);
     Snd.playSe("levelup");
     new FlxTimer(2, function(timer:FlxTimer) {

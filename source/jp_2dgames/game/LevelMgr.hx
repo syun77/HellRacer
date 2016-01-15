@@ -30,6 +30,8 @@ class LevelMgr extends FlxBasic {
   var _mode:Mode;
   // マップデータ
   var _map:Array2D = null;
+  // マップ出現開始座標
+  var _ymap:Float = 0.0;
 
   /**
    * コンストラクタ
@@ -39,9 +41,10 @@ class LevelMgr extends FlxBasic {
 
     _player = player;
     _time = 0;
+    _ymap = 0;
 
-    // TODO: 固定マップ
-    _mode = Mode.Fixed;
+    // TODO: ランダムマップ
+    _mode = Mode.Random;
 
     // 初期状態は無効にしておく
     active = false;
@@ -60,6 +63,11 @@ class LevelMgr extends FlxBasic {
    * ゴールしたかどうか
    **/
   public function isGoal():Bool {
+    if(_mode != Mode.Fixed) {
+      // ゴールがあるのは固定マップのみ
+      return false;
+    }
+
     if(_player.y < _map.height * -TILE_HEIGHT) {
       // ゴールした
       return true;
@@ -81,22 +89,7 @@ class LevelMgr extends FlxBasic {
   override public function update():Void {
     super.update();
 
-    // 敵の出現
     _time++;
-    if(_time%120 == 0) {
-      var px = Wall.randomX();
-      var py = FlxG.camera.scroll.y - 32;
-      var base = _player.getSpeed();
-      var ratio = 0.9 - 0.1 * (Math.sqrt(_time* 0.0001));
-      ratio -= FlxRandom.floatRanged(0, 0.2);
-      if(ratio < 0.3) {
-        ratio = 0.3;
-      }
-      var spd = base * ratio;
-      Enemy.add(px, py, spd);
-
-    }
-
     // 鉄球の出現
     switch(_mode) {
       case Mode.Fixed:
@@ -104,20 +97,8 @@ class LevelMgr extends FlxBasic {
         _appearFixedSpike();
 
       case Mode.Random:
-        // TODO:
-        if(_time%350 == 1) {
-          // ランダム鉄球の出現
-          var id = FlxRandom.intRanged(1, 10);
-          _appearRandomSpike(id);
-        }
-    }
-
-    // アイテムの出現
-    if(_time%350 == 0) {
-      var px = FlxG.width/2 + FlxRandom.intRanged(-32, 32);
-      var py = FlxG.camera.scroll.y - 32;
-      var spd = _player.getSpeed() * 0.7;
-      Item.add(px, py, spd);
+        // ランダム鉄球の出現
+        _appearRandomSpike();
     }
   }
 
@@ -137,14 +118,41 @@ class LevelMgr extends FlxBasic {
           Spike.add(x, y);
           _map.set(i, j, 0);
         }
+        // 敵の出現
+//        Enemy.add(px, py, spd);
+        // アイテムの出現
+//        Item.add(px, py, spd);
       }
     }
+  }
+
+  private function _checkRandomSpike():Bool {
+    if(_map == null) {
+      // 何も出現していない
+      return true;
+    }
+    var py = _ymap + (_map.height * -TILE_HEIGHT);
+    // 2つぶん空ける
+    py -= TILE_HEIGHT*2;
+    if(FlxG.camera.scroll.y < py) {
+      return true;
+    }
+
+    return false;
   }
 
   /**
    * ランダム鉄球の出現
    **/
-  private function _appearRandomSpike(id:Int):Void {
+  private function _appearRandomSpike():Void {
+
+    if(_checkRandomSpike() == false) {
+      return;
+    }
+
+    // 読み込む
+    _ymap = FlxG.camera.scroll.y;
+    var id = FlxRandom.intRanged(1, 10);
     var tmx = new TmxLoader();
     var path = Reg.getMapData(id);
     tmx.load(path);
@@ -152,10 +160,11 @@ class LevelMgr extends FlxBasic {
     layer.forEach(function(i:Int, j:Int, val:Int) {
       j = (tmx.height - j) - 1;
       var x = Wall.CHIP_LEFT + i * 16;
-      var y = FlxG.camera.scroll.y - 16 - (16 * j);
+      var y = FlxG.camera.scroll.y - (16 * j);
       if(val == 1) {
         Spike.add(x, y);
       }
     });
+    _map = layer;
   }
 }

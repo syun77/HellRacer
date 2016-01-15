@@ -229,6 +229,17 @@ class Array2D {
   }
 
   /**
+   * すべての要素を合計する
+   **/
+  public function sum():Int {
+    var ret:Int = 0;
+    for(idx in _pool.keys()) {
+      ret += _pool.get(idx);
+    }
+    return ret;
+  }
+
+  /**
 	 * レイヤー内の値を順番に走査する
 	 * ※引数は(i, j, v)
 	 **/

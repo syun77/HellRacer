@@ -12,12 +12,12 @@ class Player extends Token {
 
   static inline var DECAY_ROLL = 0.1;
 
-  private var _speed:Float = 0;
+  private var _speed:Float = 0.0;
   public function getSpeed():Float {
     return _speed;
   }
 
-  private var _tFrame:Float = 0;
+  private var _tFrame:Float = 0.0;
   private var _active:Bool = false;
 
   /**
@@ -84,7 +84,7 @@ class Player extends Token {
     super.update();
 
     _tFrame++;
-    _speed = Reg.SPEED_INIT + Math.sqrt(_tFrame * 0.0001) * 300;
+    _speed = Reg.SPEED_INIT + Math.sqrt(_tFrame * 0.0001) * 200;
 
     if(Wall.clip(this)) {
       // 壁に衝突
