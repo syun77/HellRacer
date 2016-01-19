@@ -84,7 +84,7 @@ class Player extends Token {
     super.update();
 
     _tFrame++;
-    _speed = Reg.SPEED_INIT + Math.sqrt(_tFrame * 0.0001) * 200;
+    _speed = Reg.SPEED_INIT + Math.sqrt(_tFrame * 0.0001) * 100;
 
     if(Wall.clip(this)) {
       // 壁に衝突

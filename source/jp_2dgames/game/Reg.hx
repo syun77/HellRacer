@@ -19,7 +19,7 @@ class Reg {
   public static var PATH_IMAGE_CHAR_SET = "assets/images/charset.png";
 
   // プレイヤー初速
-  public static inline var SPEED_INIT:Float = 30.0;
+  public static inline var SPEED_INIT:Float = 50.0;
 
   // マップデータのパス
   public static function getMapData(id:Int):String {
