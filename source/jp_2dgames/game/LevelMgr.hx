@@ -157,7 +157,7 @@ class LevelMgr extends FlxBasic {
     // 読み込む
     _ymap = FlxG.camera.scroll.y;
 //    var id = FlxRandom.intRanged(1, 10);
-    var id = 22; // TODO:
+    var id = 23; // TODO:
     var tmx = new TmxLoader();
     var path = Reg.getMapData(id);
     tmx.load(path);

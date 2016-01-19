@@ -12,6 +12,7 @@ enum SpikeType {
   DontMove;      // 動かない
   Move(dir:Dir); // 等速移動
   Sin(dir:Dir);  // Sinカーブ
+  Roll(dir:Dir); // 回転
 }
 
 /**
@@ -23,6 +24,8 @@ class Spike extends Token {
   static inline var MOVE_SPEED:Float = 50.0;
   // Sinカーブの移動幅
   static inline var SIN_WIDTH:Float = 32.0;
+  // 回転の半径
+  static inline var ROLL_WIDTH:Float = 32.0;
 
   static var _parent:TokenMgr<Spike> = null;
   public static function createParent(state:FlxState):Void {
@@ -103,7 +106,8 @@ class Spike extends Token {
           default:
         }
       case SpikeType.Sin(dir):
-
+      case SpikeType.Roll:
+        _updateRoll();
     }
   }
 
@@ -119,6 +123,9 @@ class Spike extends Token {
 
     // Sinカーブ移動の更新
     _updateSinCurve();
+
+    // 回転座標の更新
+    _updateRoll();
 
     if(isOutside()) {
       // 画面外に出たので消滅
@@ -166,6 +173,26 @@ class Spike extends Token {
   }
 
   /**
+   * 回転座標の更新
+   **/
+  private function _updateRoll():Void {
+    switch(_type) {
+      case SpikeType.Roll(dir):
+        var t = _tPast;
+        switch(dir) {
+          case Dir.Left:
+            x = xstart + ROLL_WIDTH * MyMath.cosEx(t);
+            y = ystart + ROLL_WIDTH * MyMath.sinEx(t);
+          case Dir.Right:
+            x = xstart + ROLL_WIDTH * MyMath.cosEx(-t);
+            y = ystart + ROLL_WIDTH * MyMath.sinEx(-t);
+          default:
+        }
+      default:
+    }
+  }
+
+  /**
    * アニメーションを変更する
    **/
   private function _changeAnim():Void {
@@ -175,6 +202,8 @@ class Spike extends Token {
         name = "brown";
       case SpikeType.Move, SpikeType.Sin:
         name = "green";
+      case SpikeType.Roll:
+        name = "red";
       default:
     }
 
