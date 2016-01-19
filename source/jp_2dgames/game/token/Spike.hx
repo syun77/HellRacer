@@ -1,4 +1,6 @@
 package jp_2dgames.game.token;
+import jp_2dgames.lib.MyMath;
+import jp_2dgames.lib.DirUtil;
 import flixel.FlxState;
 
 /**
@@ -7,9 +9,9 @@ import flixel.FlxState;
 enum SpikeType {
   None;     // 無効
 
-  DontMove; // 動かない
-  Left;     // 左に動く
-  Right;    // 右に動く
+  DontMove;      // 動かない
+  Move(dir:Dir); // 等速移動
+  Sin(dir:Dir);  // Sinカーブ
 }
 
 /**
@@ -19,6 +21,8 @@ class Spike extends Token {
 
   // 左右の移動速度
   static inline var MOVE_SPEED:Float = 50.0;
+  // Sinカーブの移動幅
+  static inline var SIN_WIDTH:Float = 32.0;
 
   static var _parent:TokenMgr<Spike> = null;
   public static function createParent(state:FlxState):Void {
@@ -44,7 +48,8 @@ class Spike extends Token {
 
   // ===============================================
   // ■メンバ変数
-  private var _type:SpikeType;
+  private var _type:SpikeType; // 種別
+  private var _tPast:Int;      // 経過フレーム数
 
   /**
    * コンストラクタ
@@ -66,16 +71,25 @@ class Spike extends Token {
   public function init(type:SpikeType, X:Float, Y:Float):Void {
     x = X;
     y = Y;
+    // 開始座標を設定
+    setStartPosition(x, y);
     velocity.set();
     _type = type;
+    _tPast = 0;
 
     switch(_type) {
       case SpikeType.None:
       case SpikeType.DontMove:
-      case SpikeType.Left:
-        velocity.x = -MOVE_SPEED;
-      case SpikeType.Right:
-        velocity.x = MOVE_SPEED;
+      case SpikeType.Move(dir):
+        switch(dir) {
+          case Dir.Left:
+            velocity.x = -MOVE_SPEED;
+          case Dir.Right:
+            velocity.x = MOVE_SPEED;
+          default:
+        }
+      case SpikeType.Sin(dir):
+
     }
   }
 
@@ -84,9 +98,13 @@ class Spike extends Token {
    **/
   override public function update():Void {
     super.update();
+    _tPast++;
 
     // 反射チェック
     _checkReflect();
+
+    // Sinカーブ移動の更新
+    _updateSinCurve();
 
     if(isOutside()) {
       // 画面外に出たので消滅
@@ -108,6 +126,28 @@ class Spike extends Token {
       // 反射する
       x = right;
       velocity.x *= -1;
+    }
+  }
+
+  /**
+   * Sinカーブの移動を更新
+   **/
+  private function _updateSinCurve():Void {
+    switch(_type) {
+      case SpikeType.Sin(dir):
+        var t = _tPast;
+        switch(dir) {
+          case Dir.Left:
+            x = xstart + SIN_WIDTH * MyMath.sinEx(t+180);
+          case Dir.Right:
+            x = xstart + SIN_WIDTH * MyMath.sinEx(t);
+          case Dir.Up:
+            y = ystart + SIN_WIDTH * MyMath.sinEx(t+180);
+          case Dir.Down:
+            y = ystart + SIN_WIDTH * MyMath.sinEx(t);
+          default:
+        }
+      default:
     }
   }
 }

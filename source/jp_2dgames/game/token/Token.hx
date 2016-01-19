@@ -40,6 +40,13 @@ class Token extends FlxSprite {
   public function get_radius() {
     return 8;
   }
+  // 開始座標
+  public var xstart:Float = 0.0;
+  public var ystart:Float = 0.0;
+  private function setStartPosition(px:Float, py:Float) {
+    xstart = px;
+    ystart = py;
+  }
 
   /**
    * 画面外に出たかどうか

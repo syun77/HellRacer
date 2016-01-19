@@ -124,16 +124,16 @@ class DirUtil {
 	 * @return 入力した方向
 	 **/
   public static function getInputDirection():Dir {
-    if(Key.on.LEFT) {
+    if(Input.on.LEFT) {
       return Dir.Left;
     }
-    else if(Key.on.RIGHT) {
+    else if(Input.on.RIGHT) {
       return Dir.Right;
     }
-    else if(Key.on.UP) {
+    else if(Input.on.UP) {
       return Dir.Up;
     }
-    else if(Key.on.DOWN) {
+    else if(Input.on.DOWN) {
       return Dir.Down;
     }
     else {
