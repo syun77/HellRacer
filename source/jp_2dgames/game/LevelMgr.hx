@@ -156,7 +156,7 @@ class LevelMgr extends FlxBasic {
 
     // 読み込む
     _ymap = FlxG.camera.scroll.y;
-    var id = FlxRandom.intRanged(31, 40);
+    var id = _getRandomMapID();
     var tmx = new TmxLoader();
     var path = Reg.getMapData(id);
     tmx.load(path);
@@ -171,5 +171,25 @@ class LevelMgr extends FlxBasic {
       }
     });
     _map = layer;
+  }
+
+  /**
+   * ランダムマップのIDを取得する
+   **/
+  private function _getRandomMapID():Int {
+    var t = _time;
+    var frame = FlxG.updateFramerate;
+    if(t < frame * 30) {
+      return FlxRandom.intRanged(1, 20);
+    }
+    else if(t < frame * 60) {
+      return FlxRandom.intRanged(21, 30);
+    }
+    else if(t < frame * 90) {
+      return FlxRandom.intRanged(31, 40);
+    }
+    else {
+      return FlxRandom.intRanged(1, 40);
+    }
   }
 }

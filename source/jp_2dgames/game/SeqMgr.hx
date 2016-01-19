@@ -44,8 +44,9 @@ class SeqMgr {
     // 移動距離計算 (上に進むのでマイナスする)
     _yincrease += -(_player.y - _yprev);
     if(_yincrease > SCORE_DISTANCE) {
+      // 移動距離に応じてスコア増加
       var d = Math.floor(_yincrease / SCORE_DISTANCE);
-      Global.addScore(d * 10);
+      Global.addScore(d * 100);
       _yincrease -= d * SCORE_DISTANCE;
     }
     _yprev = _player.y;
