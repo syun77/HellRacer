@@ -9,6 +9,9 @@ import flixel.FlxBasic;
  **/
 class LimitMgr extends FlxBasic {
 
+  // 制限時間
+  static inline var LIMIT_TIME:Float = (2 * 60.0) + 10;
+
   private static var _instance:LimitMgr = null;
   // 生成
   public static function create(state:FlxState):Void {
@@ -46,14 +49,13 @@ class LimitMgr extends FlxBasic {
     return _instance._isDanger();
   }
 
-  var _time:Float = 0;
+  var _time:Float = 0.0;
   var _bPause:Bool = false;
 
   public function new() {
     super();
 
-    // TODO: データに逃がす
-    _time = (2 * 60) + 10;
+    _time = LIMIT_TIME;
   }
 
   private function _set(v:Float):Void {
