@@ -57,9 +57,20 @@ class Spike extends Token {
   public function new() {
     super();
     loadGraphic(Reg.PATH_IMAGE_CHAR_SET, true, CharSet.WIDTH, CharSet.HEIGHT);
-    var anim = [for(i in 0...4) CharSet.OFS_SPIKE+i];
-    animation.add("play", anim, 8);
-    animation.play("play");
+    {
+      var anim = [for(i in 0...4) CharSet.OFS_SPIKE+i];
+      animation.add("brown", anim, 8);
+    }
+    {
+      var anim = [for(i in 0...4) CharSet.OFS_SPIKE2+i];
+      animation.add("green", anim, 8);
+    }
+    {
+      var anim = [for(i in 0...4) CharSet.OFS_SPIKE3+i];
+      animation.add("red", anim, 8);
+    }
+
+    animation.play("brown");
 
     // 消しておく
     kill();
@@ -76,6 +87,9 @@ class Spike extends Token {
     velocity.set();
     _type = type;
     _tPast = 0;
+
+    // アニメーションを設定
+    _changeAnim();
 
     switch(_type) {
       case SpikeType.None:
@@ -149,5 +163,21 @@ class Spike extends Token {
         }
       default:
     }
+  }
+
+  /**
+   * アニメーションを変更する
+   **/
+  private function _changeAnim():Void {
+    var name = "brown";
+    switch(_type) {
+      case SpikeType.DontMove:
+        name = "brown";
+      case SpikeType.Move, SpikeType.Sin:
+        name = "green";
+      default:
+    }
+
+    animation.play(name);
   }
 }
