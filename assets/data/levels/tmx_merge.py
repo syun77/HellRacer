@@ -121,8 +121,8 @@ def merge(idList):
 	# tmxのテンプレート定義
 	str = """<?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="9" height="%d" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="4" columns="4">
-  <image source="tileset.png" width="64" height="16"/>
+ <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="64" columns="8">
+  <image source="tileset.png" width="128" height="128"/>
  </tileset>
  <layer name="map" width="9" height="%d">
   <data encoding="csv">

@@ -1,4 +1,6 @@
 package jp_2dgames.game;
+import jp_2dgames.game.token.Spike.SpikeType;
+import jp_2dgames.game.token.SpikeUtil;
 import jp_2dgames.game.token.Player;
 import jp_2dgames.lib.TmxLoader;
 import jp_2dgames.lib.Array2D;
@@ -112,10 +114,11 @@ class LevelMgr extends FlxBasic {
     for(j in py...(py+h)) {
       for(i in 0..._map.width) {
         var v = _map.get(i, j);
-        if(v == 1) {
+        var type = SpikeUtil.toSpikeType(v);
+        if(type != SpikeType.None) {
           var x = i * TILE_WIDTH + Wall.CHIP_LEFT;
           var y = (_map.height-j) * -TILE_HEIGHT;
-          Spike.add(x, y);
+          Spike.add(type, x, y);
           _map.set(i, j, 0);
         }
         // 敵の出現
@@ -153,7 +156,8 @@ class LevelMgr extends FlxBasic {
 
     // 読み込む
     _ymap = FlxG.camera.scroll.y;
-    var id = FlxRandom.intRanged(1, 10);
+//    var id = FlxRandom.intRanged(1, 10);
+    var id = 21; // TODO:
     var tmx = new TmxLoader();
     var path = Reg.getMapData(id);
     tmx.load(path);
@@ -162,8 +166,9 @@ class LevelMgr extends FlxBasic {
       j = (tmx.height - j) - 1;
       var x = Wall.CHIP_LEFT + i * 16;
       var y = FlxG.camera.scroll.y - (16 * j);
-      if(val == 1) {
-        Spike.add(x, y);
+      var type = SpikeUtil.toSpikeType(val);
+      if(type != SpikeType.None) {
+        Spike.add(type, x, y);
       }
     });
     _map = layer;

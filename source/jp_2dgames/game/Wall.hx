@@ -13,6 +13,8 @@ class Wall {
 
   // マップデータの開始オフセット左上座標(X)
   public static inline var CHIP_LEFT = 48;
+  // マップデータの開始オフセット右上座標(X)
+  public static inline var CHIP_RIGHT = 192;
 
   /**
    * 道路に収まるようにクリッピングする
