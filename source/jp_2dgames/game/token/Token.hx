@@ -47,6 +47,9 @@ class Token extends FlxSprite {
     xstart = px;
     ystart = py;
   }
+  // 前回の座標
+  public var xprev:Float = 0.0;
+  public var yprev:Float = 0.0;
 
   /**
    * 画面外に出たかどうか
@@ -57,5 +60,14 @@ class Token extends FlxSprite {
     cy += FlxG.height;
 
     return (y > cy);
+  }
+
+  /**
+   * updateの最後に呼び出される更新
+   **/
+  public function postUpdate():Void {
+    // 前回の座標を保存
+    xprev = x;
+    yprev = y;
   }
 }

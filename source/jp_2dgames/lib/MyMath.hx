@@ -38,4 +38,12 @@ class MyMath {
   public static function cosEx(deg:Float):Float {
     return Math.cos(deg * FlxAngle.TO_RAD);
   }
+
+  /**
+   * Atan2の値を求める
+   * @return 角度
+   **/
+  public static function atan2Ex(dy:Float, dx:Float):Float {
+    return Math.atan2(dy, dx) * FlxAngle.TO_DEG;
+  }
 }

@@ -42,7 +42,7 @@ class LevelMgr extends FlxBasic {
     super();
 
     _player = player;
-    _time = 0;
+    _time = 30*60;
     _ymap = 0;
 
     // TODO: ランダムマップ

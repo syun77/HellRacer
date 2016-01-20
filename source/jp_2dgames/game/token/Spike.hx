@@ -59,6 +59,7 @@ class Spike extends Token {
    **/
   public function new() {
     super();
+    animation.createPrerotated();
     loadGraphic(Reg.PATH_IMAGE_CHAR_SET, true, CharSet.WIDTH, CharSet.HEIGHT);
     {
       var anim = [for(i in 0...4) CharSet.OFS_SPIKE+i];
@@ -87,9 +88,12 @@ class Spike extends Token {
     y = Y;
     // 開始座標を設定
     setStartPosition(x, y);
+    // 前回の座標を更新
+    postUpdate();
     velocity.set();
     _type = type;
     _tPast = 0;
+    angle = 0;
 
     // アニメーションを設定
     _changeAnim();
@@ -131,22 +135,39 @@ class Spike extends Token {
       // 画面外に出たので消滅
       kill();
     }
+
+    // 前回の座標を更新
+    super.postUpdate();
+  }
+
+  /**
+   * 回転角度を更新
+   **/
+  private function _updateAngle(dx:Float, dy:Float):Void {
+    angle = MyMath.atan2Ex(dy, dx);
   }
 
   /**
    * 反射チェック
    **/
   private function _checkReflect():Void {
-    if(x < Wall.CHIP_LEFT) {
-      // 反射する
-      x = Wall.CHIP_LEFT;
-      velocity.x *= -1;
-    }
-    var right = Wall.CHIP_RIGHT - width;
-    if(x > right) {
-      // 反射する
-      x = right;
-      velocity.x *= -1;
+    switch(_type) {
+      case SpikeType.Move:
+        if(x < Wall.CHIP_LEFT) {
+          // 反射する
+          x = Wall.CHIP_LEFT;
+          velocity.x *= -1;
+        }
+        var right = Wall.CHIP_RIGHT - width;
+        if(x > right) {
+          // 反射する
+          x = right;
+          velocity.x *= -1;
+        }
+
+        // 回転角度を更新
+        _updateAngle(velocity.x, velocity.y);
+      default:
     }
   }
 
@@ -168,6 +189,8 @@ class Spike extends Token {
             y = ystart + SIN_WIDTH * MyMath.sinEx(t);
           default:
         }
+        // 回転角度を更新
+        _updateAngle(x-xprev, y-yprev);
       default:
     }
   }
@@ -188,6 +211,8 @@ class Spike extends Token {
             y = ystart + ROLL_WIDTH * MyMath.sinEx(-t);
           default:
         }
+        // 回転角度を更新
+        _updateAngle(x-xprev, y-yprev);
       default:
     }
   }

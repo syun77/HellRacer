@@ -19,5 +19,16 @@
     <orderEntry type="library" name="Flixel Addons" level="application" />
     <orderEntry type="library" name="OpenFL" level="application" />
     <orderEntry type="library" name="Flixel Engine" level="application" />
+    <orderEntry type="module-library">
+      <library name="haxelib|openfl">
+        <CLASSES>
+          <root url="$USER_HOME$/Library/haxelib/openfl/3,5,3/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="$USER_HOME$/Library/haxelib/openfl/3,5,3/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
