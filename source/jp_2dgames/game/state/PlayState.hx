@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.util.Save;
 import jp_2dgames.game.util.ScrollTarget;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.gui.CaptionUI;
@@ -259,6 +260,14 @@ class PlayState extends FlxState {
     }
     if(FlxG.keys.justPressed.R) {
       FlxG.resetState();
+    }
+    if(FlxG.keys.justPressed.S) {
+      // 保存
+      Save.save(true, true);
+    }
+    if(FlxG.keys.justPressed.A) {
+      // ロード
+      Save.load(true, true);
     }
 #end
   }

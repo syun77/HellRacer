@@ -10,12 +10,15 @@ class Global {
 
   // スコア
   static var _score:Int;
+  // ハイスコア
+  static var _hi_score:Int;
 
   /**
    * ゲーム開始前の初期化
    **/
   public static function init():Void {
     _level = 1;
+    _hi_score = 0;
   }
 
   /**
@@ -46,6 +49,11 @@ class Global {
    **/
   public static function addScore(v:Int):Void {
     _score += v;
+
+    if(_score >_hi_score) {
+      // ハイスコア更新
+      _hi_score = _score;
+    }
   }
 
   /**
@@ -53,6 +61,20 @@ class Global {
    **/
   public static function getScore():Int {
     return _score;
+  }
+
+  /**
+   * ハイスコア取得
+   **/
+  public static function getHiScore():Int {
+    return _hi_score;
+  }
+
+  /**
+   * ハイスコア設定
+   **/
+  public static function setHiScore(v:Int):Void {
+    _hi_score = v;
   }
 
 }
