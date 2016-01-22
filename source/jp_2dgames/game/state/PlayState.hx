@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.global.Global;
 import jp_2dgames.game.util.Save;
 import jp_2dgames.game.util.ScrollTarget;
 import jp_2dgames.game.token.Spike;

@@ -1,4 +1,5 @@
 package jp_2dgames.game.gui;
+import jp_2dgames.game.global.Global;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.FlxSprite;

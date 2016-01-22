@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.global.Global;
 import jp_2dgames.lib.TextUtil;
 class Reg {
   // 車

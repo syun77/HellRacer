@@ -3,6 +3,7 @@ package jp_2dgames.game.token;
 /**
  * アイテム
  **/
+import jp_2dgames.game.global.Global;
 import flixel.util.FlxColor;
 import jp_2dgames.game.particle.Particle;
 import jp_2dgames.game.particle.ParticleScore;

@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.global.Global;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.lib.Snd;
 import jp_2dgames.game.token.Token;

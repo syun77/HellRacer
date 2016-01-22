@@ -1,6 +1,7 @@
 package jp_2dgames.game.util;
 
 // グローバル
+import jp_2dgames.game.global.Global;
 import flixel.util.FlxSave;
 import openfl.filesystem.File;
 import haxe.Json;

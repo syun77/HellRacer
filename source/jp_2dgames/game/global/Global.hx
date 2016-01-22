@@ -1,4 +1,4 @@
-package jp_2dgames.game;
+package jp_2dgames.game.global;
 
 /**
  * メインゲーム中のグローバルデータ
@@ -13,12 +13,16 @@ class Global {
   // ハイスコア
   static var _hi_score:Int;
 
+  // プレイデータ
+  static var _playData:PlayData;
+
   /**
    * ゲーム開始前の初期化
    **/
   public static function init():Void {
     _level = 1;
     _hi_score = 0;
+    _playData = new PlayData();
   }
 
   /**
@@ -75,6 +79,10 @@ class Global {
    **/
   public static function setHiScore(v:Int):Void {
     _hi_score = v;
+  }
+
+  public static function getPlayData():PlayData {
+    return _playData;
   }
 
 }
