@@ -14,6 +14,9 @@ class Global {
   // プレイデータ
   static var _playData:PlayData;
 
+  // 走行距離
+  static var _mileage:Float;
+
   /**
    * 起動時に一度だけ呼び出される初期化
    **/
@@ -26,6 +29,7 @@ class Global {
    **/
   public static function start():Void {
     _level = 1;
+    _mileage = 0;
   }
 
   /**
@@ -83,4 +87,17 @@ class Global {
     return _playData;
   }
 
+  /**
+   * 走行距離を取得する
+   **/
+  public static function getMileage():Float {
+    return _mileage;
+  }
+
+  /**
+   * 走行距離を加算する
+   **/
+  public static function addMileage(v:Float):Void {
+    _mileage += v;
+  }
 }

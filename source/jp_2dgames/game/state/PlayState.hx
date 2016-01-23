@@ -195,10 +195,15 @@ class PlayState extends FlxState {
     Global.addScore(v);
   }
 
-  private function _checkHiScore():Void {
+  private function _checkResult():Void {
     // ハイスコアを設定
     if(PlayData.setHiscore(Global.getScore())) {
       // 記録を更新した
+    }
+
+    // 最長走行距離更新
+    if(PlayData.setLongestMileage(Global.getMileage())) {
+      // 記録更新
     }
   }
 
@@ -216,8 +221,8 @@ class PlayState extends FlxState {
         _change(State.Gameover);
         Snd.stopMusic();
 
-        // ハイスコア更新チェック
-        _checkHiScore();
+        // リザルトチェック
+        _checkResult();
 
         // 画面を揺らす
         FlxG.camera.flash();
@@ -230,8 +235,8 @@ class PlayState extends FlxState {
         // 時間切れ
         _change(State.Gameover);
 
-        // ハイスコア更新チェック
-        _checkHiScore();
+        // リザルトチェック
+        _checkResult();
 
         _player.active = false;
         _captionUI.show("TIME IS UP", true);

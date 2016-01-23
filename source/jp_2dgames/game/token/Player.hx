@@ -1,4 +1,5 @@
 package jp_2dgames.game.token;
+import jp_2dgames.game.global.Global;
 import flixel.FlxG;
 import jp_2dgames.game.global.PlayData;
 import jp_2dgames.lib.Snd;
@@ -84,7 +85,12 @@ class Player extends Token {
     }
 
     // 走行距離更新
-    PlayData.addTotalMileage(velocity.y/FlxG.updateFramerate);
+    {
+      // 上に進むので符号を逆にする
+      var v = -1.0 * velocity.y/FlxG.updateFramerate;
+      PlayData.addTotalMileage(v);
+      Global.addMileage(v);
+    }
 
     super.update();
 
