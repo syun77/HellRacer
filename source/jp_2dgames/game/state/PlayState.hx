@@ -241,6 +241,9 @@ class PlayState extends FlxState {
         // リザルトチェック
         _checkResult();
 
+        // TODO: クリア回数を増やす
+        PlayData.addTotalCompleted();
+
         _player.active = false;
         _captionUI.show("TIME IS UP", true);
         _showButton();
