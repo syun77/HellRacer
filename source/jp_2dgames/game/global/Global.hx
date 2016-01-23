@@ -83,8 +83,18 @@ class Global {
     return PlayData.setHiscore(v);
   }
 
+  /**
+   * プレイデータを取得する
+   **/
   public static function getPlayData():PlayData {
     return _playData;
+  }
+
+  /**
+   * プレイデータを設定する
+   **/
+  public static function setPlayData(d:PlayData):Void {
+    _playData.copy(d);
   }
 
   /**

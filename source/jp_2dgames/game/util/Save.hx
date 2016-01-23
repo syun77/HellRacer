@@ -1,6 +1,7 @@
 package jp_2dgames.game.util;
 
 // グローバル
+import jp_2dgames.game.global.PlayData;
 import jp_2dgames.game.global.Global;
 import flixel.util.FlxSave;
 import openfl.filesystem.File;
@@ -23,18 +24,23 @@ private class _Global {
 // セーブデータ
 private class _SaveData {
   public var global:_Global;
+  public var playdata:PlayData;
 
   public function new() {
     global = new _Global();
+    playdata = new PlayData();
   }
 
   // セーブ
   public function save() {
     global.save();
+    playdata.copy(Global.getPlayData());
   }
   // ロード
   public function load(data:Dynamic) {
     global.load(data.global);
+    playdata.copy(data.playdata);
+    Global.setPlayData(playdata);
   }
 }
 
