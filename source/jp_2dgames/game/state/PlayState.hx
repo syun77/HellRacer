@@ -224,6 +224,9 @@ class PlayState extends FlxState {
         // リザルトチェック
         _checkResult();
 
+        // ゲームオーバー回数を増やす
+        PlayData.addTotalDeath();
+
         // 画面を揺らす
         FlxG.camera.flash();
         FlxG.camera.shake(0.02, 0.5, function() {
