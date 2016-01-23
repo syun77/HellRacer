@@ -84,7 +84,7 @@ class Player extends Token {
     }
 
     // 走行距離更新
-    PlayData.addTotalMileage(_speed/FlxG.updateFramerate);
+    PlayData.addTotalMileage(velocity.y/FlxG.updateFramerate);
 
     super.update();
 
