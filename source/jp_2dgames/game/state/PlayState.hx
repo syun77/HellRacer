@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Goal;
 import jp_2dgames.game.global.PlayData;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.game.util.Save;
@@ -30,7 +31,6 @@ private enum State {
   Init;     // 初期化
   Main;     // メイン
   Gameover; // ゲームオーバー
-  Goal;     // ゴールにたどりついた
 }
 
 /**
@@ -61,12 +61,16 @@ class PlayState extends FlxState {
     // 背景
     this.add(new Bg());
 
+    // ゴール
+    var goal = new Goal();
+    this.add(goal);
+
     // プレイヤー
     _player = new Player(FlxG.width/2, FlxG.height/4);
     this.add(_player);
 
     // レベル
-    _levelMgr = new LevelMgr(_player);
+    _levelMgr = new LevelMgr(_player, goal);
     this.add(_levelMgr);
 
     // ゲームシーケンス管理
@@ -182,7 +186,6 @@ class PlayState extends FlxState {
       case State.Main:
         _updateMain();
       case State.Gameover:
-      case State.Goal:
     }
 
     _updateDebug();
@@ -234,30 +237,20 @@ class PlayState extends FlxState {
           _showButton();
         });
 
-      case SeqMgr.RET_TIMEISUP:
+      case SeqMgr.RET_GOAL:
+        // ゴールにたどりついた
         // 時間切れ
         _change(State.Gameover);
 
         // リザルトチェック
         _checkResult();
 
-        // TODO: クリア回数を増やす
+        // クリア回数を増やす
         PlayData.addTotalCompleted();
 
         _player.active = false;
-        _captionUI.show("TIME IS UP", true);
+        _captionUI.show("COMPLETE!", true);
         _showButton();
-
-      case SeqMgr.RET_GOAL:
-        // ゴールにたどりついた
-        _change(State.Goal);
-        _player.active = false;
-        _captionUI.show("COMPLETE", true);
-        _showButton(function() {
-          // 次のステージに進む
-          Global.nextLevel();
-          FlxG.resetState();
-        });
     }
   }
 

@@ -10,7 +10,7 @@ import flixel.FlxBasic;
 class LimitMgr extends FlxBasic {
 
   // 制限時間
-  static inline var LIMIT_TIME:Float = (2 * 60.0) + 10;
+  static inline var LIMIT_TIME:Float = 10; //(2 * 60.0) + 10;
 
   private static var _instance:LimitMgr = null;
   // 生成

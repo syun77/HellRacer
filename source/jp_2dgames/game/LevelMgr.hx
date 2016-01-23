@@ -1,4 +1,5 @@
 package jp_2dgames.game;
+import jp_2dgames.game.token.Goal;
 import jp_2dgames.game.token.Spike.SpikeType;
 import jp_2dgames.game.token.SpikeUtil;
 import jp_2dgames.game.token.Player;
@@ -11,8 +12,19 @@ import flixel.util.FlxRandom;
 import flixel.FlxG;
 import flixel.FlxBasic;
 
+/**
+ * モード
+ **/
 private enum Mode {
   Random; // ランダム
+}
+
+/**
+ * 状態
+ **/
+private enum State {
+  Main;     // メイン
+  GoalWait; // ゴール出現
 }
 
 /**
@@ -27,20 +39,26 @@ class LevelMgr extends FlxBasic {
   var _time:Int = 0;
   // プレイヤー
   var _player:Player = null;
+  // ゴールオブジェクト
+  var _goal:Goal = null;
   // 起動モード
   var _mode:Mode;
   // マップデータ
   var _map:Array2D = null;
   // マップ出現開始座標
   var _ymap:Float = 0.0;
+  // 状態
+  var _state:State = State.Main;
 
   /**
    * コンストラクタ
    **/
-  public function new(player:Player) {
+  public function new(player:Player, goal:Goal) {
     super();
 
     _player = player;
+    _goal = goal;
+    _goal.kill(); // 初期状態は非表示
     _time = 30*60;
     _ymap = 0;
 
@@ -53,6 +71,8 @@ class LevelMgr extends FlxBasic {
     switch(_mode) {
       case Mode.Random: // ランダムマップ
     }
+
+    _state = State.Main;
   }
 
   /**
@@ -72,9 +92,37 @@ class LevelMgr extends FlxBasic {
     // 鉄球の出現
     switch(_mode) {
       case Mode.Random:
-        // ランダム鉄球の出現
-        _appearRandomSpike();
+        switch(_state) {
+          case State.Main:
+            // ランダム鉄球の出現
+            _appearRandomSpike();
+          case State.GoalWait:
+            // ゴールが出現したので何もしない
+        }
     }
+  }
+
+  /**
+   * ゴールにたどり着いたかどうかをチェックする
+   **/
+  public function checkGoal():Bool {
+    if(_state != State.GoalWait) {
+      // ゴール待ちではない
+      return false;
+    }
+
+    if(_player.y < _goal.y) {
+      // ゴールよりも上にいる
+      return true;
+    }
+
+    if(FlxG.overlap(_player, _goal)) {
+      // 衝突した
+      return true;
+    }
+
+    // ゴールに接触していない
+    return false;
   }
 
   /**
@@ -102,6 +150,10 @@ class LevelMgr extends FlxBasic {
     }
   }
 
+  /**
+   * ランダム鉄球の出現チェック
+   * @return 出現できるなら true
+   **/
   private function _checkRandomSpike():Bool {
     if(_map == null) {
       // 何も出現していない
@@ -124,6 +176,17 @@ class LevelMgr extends FlxBasic {
   private function _appearRandomSpike():Void {
 
     if(_checkRandomSpike() == false) {
+      return;
+    }
+
+    // 鉄球が出現できる
+    if(LimitMgr.timesup()) {
+      // 時間切れしていたらゴール出現
+      var py = FlxG.camera.scroll.y;
+      _goal.y = py;
+      _goal.revive();
+      FlxG.state.add(_goal);
+      _state = State.GoalWait;
       return;
     }
 

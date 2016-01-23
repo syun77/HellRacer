@@ -17,8 +17,7 @@ class SeqMgr {
   // procの返却値
   public static inline var RET_NONE:Int     = 0; // 特に何もなし
   public static inline var RET_GAMEOVER:Int = 1; // ゲームオーバー
-  public static inline var RET_TIMEISUP:Int = 2; // 時間切れ
-  public static inline var RET_GOAL:Int     = 3; // ゴールにたどりついた
+  public static inline var RET_GOAL:Int     = 2; // ゴールにたどりついた
 
   // スコア加算と見なされる距離
   static inline var SCORE_DISTANCE:Int = 100;
@@ -70,6 +69,10 @@ class SeqMgr {
       return RET_TIMEISUP;
     }
     */
+    if(_levelMgr.checkGoal()) {
+      // ゴールにたどり着いた
+      return RET_GOAL;
+    }
 
     return RET_NONE;
   }
