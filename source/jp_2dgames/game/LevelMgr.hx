@@ -12,7 +12,6 @@ import flixel.FlxG;
 import flixel.FlxBasic;
 
 private enum Mode {
-  Fixed;  // 固定マップ
   Random; // ランダム
 }
 
@@ -52,30 +51,8 @@ class LevelMgr extends FlxBasic {
     active = false;
 
     switch(_mode) {
-      case Mode.Fixed: // 固定マップ
-        var tmx = new TmxLoader();
-        tmx.load(Reg.getFixedMapPath());
-        _map = tmx.getLayer(0);
-
       case Mode.Random: // ランダムマップ
     }
-  }
-
-  /**
-   * ゴールしたかどうか
-   **/
-  public function isGoal():Bool {
-    if(_mode != Mode.Fixed) {
-      // ゴールがあるのは固定マップのみ
-      return false;
-    }
-
-    if(_player.y < _map.height * -TILE_HEIGHT) {
-      // ゴールした
-      return true;
-    }
-
-    return false;
   }
 
   /**
@@ -94,10 +71,6 @@ class LevelMgr extends FlxBasic {
     _time++;
     // 鉄球の出現
     switch(_mode) {
-      case Mode.Fixed:
-        // 固定マップ
-        _appearFixedSpike();
-
       case Mode.Random:
         // ランダム鉄球の出現
         _appearRandomSpike();

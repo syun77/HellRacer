@@ -59,20 +59,17 @@ class SeqMgr {
     // 衝突判定
     _checkCollide();
 
-    if(_levelMgr.isGoal()) {
-      // ゴールにたどりついた
-      return RET_GOAL;
-    }
-
     if(_player.alive == false) {
       // ゲームオーバー
       return RET_GAMEOVER;
     }
 
+    /*
     if(LimitMgr.timesup()) {
       // 時間切れ
       return RET_TIMEISUP;
     }
+    */
 
     return RET_NONE;
   }
