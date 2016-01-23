@@ -1,4 +1,6 @@
 package jp_2dgames.game.token;
+import flixel.FlxG;
+import jp_2dgames.game.global.PlayData;
 import jp_2dgames.lib.Snd;
 import flixel.util.FlxColor;
 import jp_2dgames.game.particle.Particle;
@@ -80,6 +82,9 @@ class Player extends Token {
     if(_active == false) {
       return;
     }
+
+    // 走行距離更新
+    PlayData.addTotalMileage(_speed/FlxG.updateFramerate);
 
     super.update();
 
