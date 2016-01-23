@@ -195,6 +195,13 @@ class PlayState extends FlxState {
     Global.addScore(v);
   }
 
+  private function _checkHiScore():Void {
+    // ハイスコアを設定
+    if(PlayData.setHiscore(Global.getScore())) {
+      // 記録を更新した
+    }
+  }
+
   /**
    * 更新・メイン
    **/
@@ -208,6 +215,10 @@ class PlayState extends FlxState {
         // ゲームオーバー
         _change(State.Gameover);
         Snd.stopMusic();
+
+        // ハイスコア更新チェック
+        _checkHiScore();
+
         // 画面を揺らす
         FlxG.camera.flash();
         FlxG.camera.shake(0.02, 0.5, function() {
@@ -218,6 +229,10 @@ class PlayState extends FlxState {
       case SeqMgr.RET_TIMEISUP:
         // 時間切れ
         _change(State.Gameover);
+
+        // ハイスコア更新チェック
+        _checkHiScore();
+
         _player.active = false;
         _captionUI.show("TIME IS UP", true);
         _showButton();

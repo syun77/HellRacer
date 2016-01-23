@@ -14,6 +14,7 @@ class PlayData {
   public var longestMileage:Float  = 0.0; // 最長走行距離
 
   public function new() {
+    // プレイデータ初期化
   }
 
   public function copy(data:Dynamic):Void {

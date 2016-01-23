@@ -16,7 +16,7 @@ class PlayInitState extends FlxState {
     super.create();
 
     // グローバル初期化
-    Global.init();
+    Global.start();
   }
 
   /**
