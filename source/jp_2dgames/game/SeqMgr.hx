@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.global.PlayData;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.lib.Snd;
@@ -41,6 +42,9 @@ class SeqMgr {
    * 更新
    **/
   public function proc():Int {
+
+    // ゲームプレイ時間更新
+    PlayData.update();
 
     // 移動距離計算 (上に進むのでマイナスする)
     _yincrease += -(_player.y - _yprev);
