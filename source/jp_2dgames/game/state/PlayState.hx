@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.global.PlayData;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.game.util.Save;
 import jp_2dgames.game.util.ScrollTarget;
@@ -269,6 +270,10 @@ class PlayState extends FlxState {
     if(FlxG.keys.justPressed.A) {
       // ロード
       Save.load(true, true);
+    }
+    if(FlxG.keys.justPressed.P) {
+      // プレイデータデバッグ出力
+      PlayData.dump();
     }
 #end
   }

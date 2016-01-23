@@ -29,6 +29,19 @@ class PlayData {
   // アクセス関数
   // ===========================================
   /**
+   * デバッグ出力
+   **/
+  public static function dump():Void {
+    var d = get();
+    trace('Hiscore = ${d.hiscore}');
+    trace('Total Time Played = ${d.totalTimePlayed}');
+    trace('Total Death = ${d.totalDeath}');
+    trace('Total Completed = ${d.totalCompleted}');
+    trace('Total Mileage = ${d.totalMileage}');
+    trace('Longest Mileage = ${d.longestMileage}');
+  }
+
+  /**
    * thisポインタ取得
    **/
   public static function get():PlayData {
