@@ -1,9 +1,9 @@
 package jp_2dgames.game.state;
+import jp_2dgames.game.gui.MyButton2;
 import flixel.addons.display.FlxStarField;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
-import flixel.ui.FlxButton;
 import flixel.FlxG;
 import flixel.FlxState;
 
@@ -21,7 +21,7 @@ class TitleState extends FlxState {
     var star = new FlxStarField3D();
     this.add(star);
 
-    var txt = new FlxText(48, 24, 128, "HYPER RACER 2015", 24);
+    var txt = new FlxText(48, 24, 128, "HELL RACER 2016", 24);
     txt.setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.AQUAMARINE);
     this.add(txt);
 
@@ -33,7 +33,7 @@ class TitleState extends FlxState {
 
     var px = FlxG.width/2;
     var py = FlxG.height/2 * 1.5;
-    var btn = new FlxButton(px, py, "Click to START", function() {
+    var btn = new MyButton2(px, py, "Click to START", function() {
       FlxG.switchState(new PlayInitState());
     });
     btn.x -= btn.width/2;

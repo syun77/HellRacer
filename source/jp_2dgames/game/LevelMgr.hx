@@ -35,6 +35,9 @@ class LevelMgr extends FlxBasic {
   public static inline var TILE_WIDTH:Int = 16;
   public static inline var TILE_HEIGHT:Int = 16;
 
+  // 開始時間
+  static inline var START_TIME = 0;//30 * 60;
+
   // 経過フレーム数
   var _time:Int = 0;
   // プレイヤー
@@ -59,7 +62,7 @@ class LevelMgr extends FlxBasic {
     _player = player;
     _goal = goal;
     _goal.kill(); // 初期状態は非表示
-    _time = 30*60;
+    _time = START_TIME;
     _ymap = 0;
 
     // TODO: ランダムマップ
