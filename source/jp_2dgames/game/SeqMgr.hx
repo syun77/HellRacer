@@ -20,7 +20,9 @@ class SeqMgr {
   public static inline var RET_GOAL:Int     = 2; // ゴールにたどりついた
 
   // スコア加算と見なされる距離
-  static inline var SCORE_DISTANCE:Int = 100;
+  static inline var SCORE_DISTANCE:Int = 10;
+  // 距離あたりのスコア
+  static inline var DISTANCE_PER_SCORE:Int = 10;
 
 
   var _player:Player;
@@ -50,7 +52,7 @@ class SeqMgr {
     if(_yincrease > SCORE_DISTANCE) {
       // 移動距離に応じてスコア増加
       var d = Math.floor(_yincrease / SCORE_DISTANCE);
-      Global.addScore(d * 100);
+      Global.addScore(d * DISTANCE_PER_SCORE);
       _yincrease -= d * SCORE_DISTANCE;
     }
     _yprev = _player.y;

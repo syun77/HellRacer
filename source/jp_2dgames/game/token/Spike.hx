@@ -32,8 +32,7 @@ class Spike extends Token {
     _parent = new TokenMgr<Spike>(128, Spike);
     state.add(_parent);
   }
-  public static function destroyParent(state:FlxState):Void {
-    state.remove(_parent);
+  public static function destroyParent():Void {
     _parent = null;
   }
   public static function forEachAlive(func:Spike->Void):Void {

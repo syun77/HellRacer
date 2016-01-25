@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Coin;
 import jp_2dgames.game.token.Goal;
 import jp_2dgames.game.global.PlayData;
 import jp_2dgames.game.global.Global;
@@ -82,6 +83,9 @@ class PlayState extends FlxState {
     // 敵
     Enemy.createParent(this);
 
+    // コイン
+    Coin.createParent(this);
+
     // 鉄球
     Spike.createParent(this);
 
@@ -158,11 +162,12 @@ class PlayState extends FlxState {
    **/
   override public function destroy():Void {
     _player = null;
-    Particle.destroyParent(this);
-    ParticleScore.destroyParent(this);
-    Enemy.destroyParent(this);
-    Spike.destroyParent(this);
-    Item.destroyParent(this);
+    Particle.destroyParent();
+    ParticleScore.destroyParent();
+    Enemy.destroyParent();
+    Spike.destroyParent();
+    Item.destroyParent();
+    Coin.destroyParent();
     LimitMgr.terminate(this);
 
     super.destroy();

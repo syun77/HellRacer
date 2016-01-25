@@ -13,8 +13,7 @@ class Enemy extends Token {
     _parent = new TokenMgr<Enemy>(32, Enemy);
     state.add(_parent);
   }
-  public static function destroyParent(state:FlxState):Void {
-    state.remove(_parent);
+  public static function destroyParent():Void {
     _parent = null;
   }
   public static function forEachAlive(func:Enemy->Void):Void {

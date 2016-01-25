@@ -12,6 +12,8 @@ class Reg {
   public static inline var PATH_IMAGE_HANDLE = "assets/images/handle.png";
   // アイテム・スコア
   public static inline var PATH_IMAGE_ITEM_SCORE = "assets/images/point.png";
+  // コイン
+  public static inline var PATH_IMAGE_COIN = "assets/images/coin.png";
   // エフェクト
   public static inline var PATH_EFFECT = "assets/images/effect.png";
   // タイトル画面

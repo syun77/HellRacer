@@ -42,8 +42,7 @@ class Particle extends FlxSprite {
   /**
    * 消滅
    **/
-  public static function destroyParent(state:FlxState):Void {
-    state.remove(parent);
+  public static function destroyParent():Void {
     parent = null;
   }
 

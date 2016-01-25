@@ -46,8 +46,7 @@ class ParticleScore extends FlxSprite {
   /**
    * 破棄
    **/
-  public static function destroyParent(state:FlxState):Void {
-    state.remove(parent);
+  public static function destroyParent():Void {
     parent = null;
   }
 
