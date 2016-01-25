@@ -31,14 +31,29 @@ class TitleState extends FlxState {
 
     this.add(new FlxSprite(0, FlxG.height/2-120, Reg.PATH_IMAGE_TITLE));
 
-    var px = FlxG.width/2;
-    var py = FlxG.height/2 * 1.5;
-    var btn = new MyButton2(px, py, "Click to START", function() {
-      FlxG.switchState(new PlayInitState());
-    });
-    btn.x -= btn.width/2;
-    btn.y -= btn.height/2;
-    this.add(btn);
+    // ゲーム開始ボタン
+    {
+      var px = FlxG.width/2;
+      var py = FlxG.height/2 * 1.5;
+      var btn = new MyButton2(px, py, "Click to START", function() {
+        FlxG.switchState(new PlayInitState());
+      });
+      btn.x -= btn.width/2;
+      btn.y -= btn.height/2;
+      this.add(btn);
+    }
+
+    // プレイデータ画面に遷移するボタン
+    {
+      var px = FlxG.width/2;
+      var py = FlxG.height/2 * 1.7;
+      var btn = new MyButton2(px, py, "Statistics", function() {
+        FlxG.switchState(new StatisticsState());
+      });
+      btn.x -= btn.width/2;
+      btn.y -= btn.height/2;
+      this.add(btn);
+    }
 
     var txtCopyright = new FlxText(0, FlxG.height-24, FlxG.width, "(c)2015 2dgames.jp");
     txtCopyright.alignment = "center";

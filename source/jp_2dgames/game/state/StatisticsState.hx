@@ -1,4 +1,5 @@
 package jp_2dgames.game.state;
+import jp_2dgames.game.gui.MyButton2;
 import flixel.FlxG;
 import flixel.FlxState;
 
@@ -11,6 +12,15 @@ class StatisticsState extends FlxState {
    **/
   override public function create():Void {
     super.create();
+
+    // タイトル画面に戻るボタン
+    var px = FlxG.width/2;
+    var py = FlxG.height/2 * 1.7;
+    var btn = new MyButton2(px, py, "Back", function() {
+      FlxG.switchState(new TitleState());
+    });
+    btn.x -= btn.width/2;
+    this.add(btn);
   }
 
   /**
@@ -25,10 +35,5 @@ class StatisticsState extends FlxState {
    **/
   override public function update():Void {
     super.update();
-
-    if(FlxG.keys.justPressed.SPACE) {
-      // TODO: タイトル画面に戻る
-      FlxG.switchState(new TitleState());
-    }
   }
 }
