@@ -1,4 +1,5 @@
 package jp_2dgames.game;
+import jp_2dgames.game.token.Coin;
 import jp_2dgames.game.token.Goal;
 import jp_2dgames.game.token.Spike.SpikeType;
 import jp_2dgames.game.token.SpikeUtil;
@@ -34,6 +35,9 @@ class LevelMgr extends FlxBasic {
 
   public static inline var TILE_WIDTH:Int = 16;
   public static inline var TILE_HEIGHT:Int = 16;
+
+  // コインのチップ番号
+  static inline var CHIP_COIN:Int = 25;
 
   // 開始時間
   static inline var START_TIME = 0;//30 * 60;
@@ -173,12 +177,20 @@ class LevelMgr extends FlxBasic {
     return false;
   }
 
+  private function _chipToX(i:Int):Float {
+    return Wall.CHIP_LEFT + i * 16;
+  }
+  private function _chipToY(j:Int):Float {
+    return FlxG.camera.scroll.y - (16 * j);
+  }
+
   /**
    * ランダム鉄球の出現
    **/
   private function _appearRandomSpike():Void {
 
     if(_checkRandomSpike() == false) {
+      // 出現しない
       return;
     }
 
@@ -202,13 +214,26 @@ class LevelMgr extends FlxBasic {
     var layer = tmx.getLayer(0);
     layer.forEach(function(i:Int, j:Int, val:Int) {
       j = (tmx.height - j) - 1;
-      var x = Wall.CHIP_LEFT + i * 16;
-      var y = FlxG.camera.scroll.y - (16 * j);
+      var x = _chipToX(i);
+      var y = _chipToY(j);
       var type = SpikeUtil.toSpikeType(val);
       if(type != SpikeType.None) {
+        // 鉄球出現
         Spike.add(type, x, y);
       }
     });
+
+    // コインも出現させる
+    var pt = layer.searchRandom(CHIP_COIN);
+    if(pt != null) {
+      trace("coin", path, pt.x, pt.y);
+      pt.y = (tmx.height - pt.y) - 1;
+      var x = _chipToX(Std.int(pt.x));
+      var y = _chipToY(Std.int(pt.y));
+      Coin.add(x, y);
+      pt.put();
+    }
+
     _map = layer;
   }
 

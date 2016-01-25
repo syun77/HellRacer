@@ -1,5 +1,9 @@
 package jp_2dgames.game.token;
 
+import flixel.util.FlxColor;
+import jp_2dgames.game.particle.Particle;
+import jp_2dgames.game.global.Global;
+import jp_2dgames.game.particle.ParticleScore;
 import flixel.FlxState;
 
 /**
@@ -26,6 +30,9 @@ class Coin extends Token {
   public static function count():Int {
     return _parent.countLiving();
   }
+  public static function forEachAlive(func:Coin->Void):Void {
+    _parent.forEachAlive(func);
+  }
 
   /**
    * コンストラクタ
@@ -40,9 +47,43 @@ class Coin extends Token {
     kill();
   }
 
+  /**
+   * 初期化
+   **/
   public function init(X:Float, Y:Float):Void {
     x = X;
     y = Y;
+  }
+
+  /**
+   * 消滅
+   **/
+  public function vanish():Void {
+
+    // スコア加算
+    Global.addScore(SCORE);
+
+    // スコア演出
+    var px = xcenter;
+    var py = ycenter;
+    ParticleScore.start(px, py, Item.SCORE);
+    // エフェクト
+    Particle.start(PType.Ring, px, py, FlxColor.YELLOW);
+
+    // 消滅
+    kill();
+  }
+
+  /**
+   * 更新
+   **/
+  public override function update():Void {
+    super.update();
+
+    if(isOutside()) {
+      // 画面外に出たので消滅
+      kill();
+    }
   }
 }
 

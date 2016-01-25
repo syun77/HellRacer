@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Coin;
 import jp_2dgames.game.global.PlayData;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.game.token.Spike;
@@ -106,6 +107,16 @@ class SeqMgr {
         _player.addFrameTimer(60 * 60);
 
         Snd.playSe("powerup");
+      }
+    });
+
+    // プレイヤー vs コイン
+    Coin.forEachAlive(function(coin:Coin) {
+      if(Token.checkHitCircle(_player, coin)) {
+        // コイン獲得
+        coin.vanish();
+
+        Snd.playSe("coin");
       }
     });
 
