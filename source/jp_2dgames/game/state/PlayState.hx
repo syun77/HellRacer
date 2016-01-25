@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.gui.MyButton2;
 import jp_2dgames.game.token.Coin;
 import jp_2dgames.game.token.Goal;
 import jp_2dgames.game.global.PlayData;
@@ -196,13 +197,6 @@ class PlayState extends FlxState {
     _updateDebug();
   }
 
-  /**
-   * スコア加算
-   **/
-  private function _addScore(v:Int):Void {
-    Global.addScore(v);
-  }
-
   private function _checkResult():Void {
     // ハイスコアを設定
     if(PlayData.setHiscore(Global.getScore())) {
@@ -270,7 +264,7 @@ class PlayState extends FlxState {
     }
     var px = FlxG.width/2;
     var py = FlxG.height/2;
-    var btn = new FlxButton(px, py, "Back to TITLE", cbFunc);
+    var btn = new MyButton2(px, py, "Back to  TITLE ", cbFunc);
     btn.x -= btn.width/2;
     btn.y -= btn.height/2;
     this.add(btn);
