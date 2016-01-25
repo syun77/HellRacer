@@ -16,7 +16,6 @@ class CaptionUI extends FlxSpriteGroup {
 
   var _bg:FlxSprite;
   var _txt:FlxText;
-  var _txtScore:FlxText;
 
   /**
    * コンストラクタ
@@ -37,11 +36,6 @@ class CaptionUI extends FlxSpriteGroup {
     _txt.alignment = "center";
     this.add(_txt);
 
-    _txtScore = new FlxText(0, SCORE_Y, WIDTH, "", 12);
-    _txtScore.setBorderStyle(FlxText.BORDER_OUTLINE);
-    _txtScore.alignment = "center";
-    this.add(_txtScore);
-
     // スクロール無効
     scrollFactor.set();
 
@@ -52,16 +46,10 @@ class CaptionUI extends FlxSpriteGroup {
   /**
    * キャプションの表示
    * @param msg    表示するメッセージ
-   * @param bScore スコアを表示するかどうか
    **/
-  public function show(msg:String, bScore:Bool):Void {
+  public function show(msg:String):Void {
     _txt.text = msg;
     visible = true;
-    _txtScore.visible = bScore;
-    if(bScore) {
-      // スコア表示
-      _txtScore.text = 'SCORE: ${Global.getScore()}';
-    }
   }
 
   /**

@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.gui.ResultUI;
 import jp_2dgames.game.gui.MyButton2;
 import jp_2dgames.game.token.Coin;
 import jp_2dgames.game.token.Goal;
@@ -19,7 +20,6 @@ import jp_2dgames.game.particle.Particle;
 import flixel.util.FlxTimer;
 import flixel.util.FlxPoint;
 import flixel.FlxCamera;
-import flixel.ui.FlxButton;
 import jp_2dgames.game.token.Player;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
@@ -125,7 +125,7 @@ class PlayState extends FlxState {
     // 鉄球を出現させておく
     _levelMgr.update();
 
-    _captionUI.show("READY", false);
+    _captionUI.show("READY");
     Snd.playSe("levelup");
     new FlxTimer(2, function(timer:FlxTimer) {
 //      _start(3);
@@ -151,7 +151,7 @@ class PlayState extends FlxState {
 
     // カウントダウン
     Snd.playSe("countdown");
-    _captionUI.show('${cnt}', false);
+    _captionUI.show('${cnt}');
     new FlxTimer(1, function(timer:FlxTimer) {
       _start(cnt-1);
     });
@@ -197,16 +197,29 @@ class PlayState extends FlxState {
     _updateDebug();
   }
 
+  /**
+   * リザルト表示チェック
+   **/
   private function _checkResult():Void {
+
+    // リザルト表示パラメータ
+    var param = new ResultUIParam(Global.getScore(), Global.getMileage());
+
     // ハイスコアを設定
     if(PlayData.setHiscore(Global.getScore())) {
       // 記録を更新した
+      param.scoreNew = true;
     }
 
     // 最長走行距離更新
     if(PlayData.setLongestMileage(Global.getMileage())) {
       // 記録更新
+      param.mileageNew = true;
     }
+
+    // リザルト表示
+    var result = new ResultUI(param);
+    this.add(result);
   }
 
   /**
@@ -232,7 +245,7 @@ class PlayState extends FlxState {
         // 画面を揺らす
         FlxG.camera.flash();
         FlxG.camera.shake(0.02, 0.5, function() {
-          _captionUI.show("GAME OVER", true);
+          _captionUI.show("GAME OVER");
           _showButton();
         });
 
@@ -248,7 +261,7 @@ class PlayState extends FlxState {
         PlayData.addTotalCompleted();
 
         _player.active = false;
-        _captionUI.show("COMPLETE!", true);
+        _captionUI.show("COMPLETE!");
         _showButton();
     }
   }
@@ -263,7 +276,7 @@ class PlayState extends FlxState {
       };
     }
     var px = FlxG.width/2;
-    var py = FlxG.height/2;
+    var py = FlxG.height/2 + 32;
     var btn = new MyButton2(px, py, "Back to  TITLE ", cbFunc);
     btn.x -= btn.width/2;
     btn.y -= btn.height/2;
@@ -277,6 +290,10 @@ class PlayState extends FlxState {
 #if neko
     if(FlxG.keys.justPressed.ESCAPE) {
       throw "Terminate.";
+    }
+    if(FlxG.keys.justPressed.D) {
+      // 自爆
+      _player.vanish();
     }
     if(FlxG.keys.justPressed.R) {
       FlxG.resetState();
