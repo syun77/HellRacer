@@ -87,6 +87,11 @@ class Save {
   public static function load(bFromText:Bool, bLog:Bool):Void {
     var str = "";
     #if neko
+    // ファイル存在チェック
+    if(openfl.Assets.exists(Reg.PATH_SAVE, TEXT) == false) {
+      // 存在しないので何もしない
+      return;
+    }
     str = sys.io.File.getContent(Reg.PATH_SAVE);
     if(bLog) {
       trace("load ----------------------");

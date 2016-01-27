@@ -87,7 +87,7 @@ class Player extends Token {
     // 走行距離更新
     {
       // 上に進むので符号を逆にする
-      var v = -1.0 * velocity.y/FlxG.updateFramerate;
+      var v = -1.0 * velocity.y/FlxG.updateFramerate * 0.01;
       PlayData.addTotalMileage(v);
       Global.addMileage(v);
     }
