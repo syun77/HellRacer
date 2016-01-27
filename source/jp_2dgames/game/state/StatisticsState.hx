@@ -1,4 +1,7 @@
 package jp_2dgames.game.state;
+import flixel.util.FlxColor;
+import flixel.FlxSprite;
+import jp_2dgames.game.gui.StatisticsUI;
 import jp_2dgames.game.gui.MyButton2;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -12,6 +15,15 @@ class StatisticsState extends FlxState {
    **/
   override public function create():Void {
     super.create();
+
+    // 背景
+    this.add(new FlxSprite(0, FlxG.height/2-120, Reg.PATH_IMAGE_TITLE));
+    var bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+    bg.alpha = 0.7;
+    this.add(bg);
+
+    // 項目表示
+    this.add(new StatisticsUI());
 
     // タイトル画面に戻るボタン
     var px = FlxG.width/2;

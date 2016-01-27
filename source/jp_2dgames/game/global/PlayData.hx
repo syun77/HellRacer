@@ -3,6 +3,8 @@ package jp_2dgames.game.global;
 /**
  * プレイデータ
  **/
+import jp_2dgames.lib.TextUtil;
+import openfl._internal.renderer.opengl.shaders.StripShader;
 import flixel.FlxG;
 class PlayData {
 
@@ -87,6 +89,9 @@ class PlayData {
   public static function getTotalTimePlayed():Int {
     return Std.int(get().totalTimePlayed);
   }
+  public static function getTotalTimePlayedStr():String {
+    return TextUtil.secToHHMMSS(getTotalTimePlayed());
+  }
 
   /**
    * プレイ回数を取得する
@@ -164,6 +169,12 @@ class PlayData {
   public static function getAveragePerMileage():Float {
     var d = get();
     var count = getPlayCount();
-    return d.totalMileage / count;
+    if(count == 0) {
+      return 0;
+    }
+
+    var ret = d.totalMileage / count;
+    // 小数点第二位より下を切り捨て
+    return Math.floor(ret * 100) / 100;
   }
 }

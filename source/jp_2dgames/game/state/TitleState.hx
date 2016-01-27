@@ -55,7 +55,7 @@ class TitleState extends FlxState {
       this.add(btn);
     }
 
-    var txtCopyright = new FlxText(0, FlxG.height-24, FlxG.width, "(c)2015 2dgames.jp");
+    var txtCopyright = new FlxText(0, FlxG.height-24, FlxG.width, "(c)2016 2dgames.jp");
     txtCopyright.alignment = "center";
     this.add(txtCopyright);
   }
