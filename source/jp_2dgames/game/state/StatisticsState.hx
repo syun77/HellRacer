@@ -1,4 +1,7 @@
 package jp_2dgames.game.state;
+import jp_2dgames.game.global.Global;
+import jp_2dgames.game.util.Save;
+import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import jp_2dgames.game.gui.StatisticsUI;
@@ -26,13 +29,28 @@ class StatisticsState extends FlxState {
     this.add(new StatisticsUI());
 
     // タイトル画面に戻るボタン
-    var px = FlxG.width/2;
-    var py = FlxG.height/2 * 1.7;
-    var btn = new MyButton2(px, py, "Back", function() {
-      FlxG.switchState(new TitleState());
-    });
-    btn.x -= btn.width/2;
-    this.add(btn);
+    {
+      var px = FlxG.width/2;
+      var py = FlxG.height/2 * 1.6;
+      var btn = new MyButton2(px, py, "Back", function() {
+        FlxG.switchState(new TitleState());
+      });
+      btn.x -= btn.width/2;
+      this.add(btn);
+    }
+
+    // セーブデータリセットボタン
+    {
+      var px = FlxG.width;
+      var py = 8;
+      var btn = new FlxButton(px, py, "DELETE", function() {
+        Save.erase();
+        Global.init();
+        FlxG.switchState(new StatisticsState());
+      });
+      btn.x -= btn.width + 8;
+      this.add(btn);
+    }
   }
 
   /**

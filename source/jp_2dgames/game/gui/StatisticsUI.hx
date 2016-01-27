@@ -16,7 +16,7 @@ class StatisticsUI extends FlxSpriteGroup {
   static inline var BASE_Y = 16;
 
   static inline var TEXT_X = 0;
-  static inline var TEXT_Y = 8;
+  static inline var TEXT_Y = 16;
 
   static inline var TEXT_DY = 32;
   static inline var TEXT_SIZE = 16;
