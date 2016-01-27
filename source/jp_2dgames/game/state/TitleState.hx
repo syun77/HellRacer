@@ -1,4 +1,7 @@
 package jp_2dgames.game.state;
+import jp_2dgames.game.gui.MyFlxButton;
+import openfl.Lib;
+import openfl.net.URLRequest;
 import jp_2dgames.game.gui.MyButton2;
 import flixel.addons.display.FlxStarField;
 import flixel.util.FlxColor;
@@ -55,9 +58,20 @@ class TitleState extends FlxState {
       this.add(btn);
     }
 
-    var txtCopyright = new FlxText(0, FlxG.height-24, FlxG.width, "(c)2016 2dgames.jp");
-    txtCopyright.alignment = "center";
-    this.add(txtCopyright);
+    // ホームページ遷移ボタン
+    {
+      var px = FlxG.width/2;
+      var py = FlxG.height/2 * 1.9;
+      var btn = new MyFlxButton(px, py, "(c)2016 2dgames.jp", function() {
+        // ホームページを開く
+        var urlString = "http://2dgames.jp/iphone/";
+        var request = new URLRequest(urlString);
+        // "_blank"で開く
+        flash.Lib.getURL(request, "_blank");
+      });
+      btn.x -= btn.width/2;
+      this.add(btn);
+    }
   }
 
   /**
