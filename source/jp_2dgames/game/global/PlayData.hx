@@ -11,7 +11,7 @@ class PlayData {
   public var hiscore:Int           = 0; // ハイスコア
   public var totalTimePlayed:Float = 0.0; // プレイ時間
   public var totalDeath:Int        = 0; // 死亡回数
-  public var totalCompleted:Int    = 0; // クリア回数
+  public var totalFinished:Int     = 0; // クリア回数
   public var totalMileage:Float    = 0.0; // 総走行距離
   public var longestMileage:Float  = 0.0; // 最長走行距離
 
@@ -23,7 +23,7 @@ class PlayData {
     hiscore         = data.hiscore;
     totalTimePlayed = data.totalTimePlayed;
     totalDeath      = data.totalDeath;
-    totalCompleted  = data.totalCompleted;
+    totalFinished   = data.totalFinished;
     totalMileage    = data.totalMileage;
     longestMileage  = data.longestMileage;
   }
@@ -39,7 +39,7 @@ class PlayData {
     trace('Hiscore = ${d.hiscore}');
     trace('Total Time Played = ${d.totalTimePlayed}');
     trace('Total Death = ${d.totalDeath}');
-    trace('Total Completed = ${d.totalCompleted}');
+    trace('Total Finished = ${d.totalFinished}');
     trace('Total Mileage = ${d.totalMileage}');
     trace('Longest Mileage = ${d.longestMileage}');
   }
@@ -98,7 +98,7 @@ class PlayData {
    **/
   public static function getPlayCount():Int {
     var d = get();
-    return d.totalDeath + d.totalCompleted;
+    return d.totalDeath + d.totalFinished;
   }
 
   /**
@@ -118,15 +118,15 @@ class PlayData {
   /**
    * クリア回数を取得する
    **/
-  public static function getTotalCompleted():Int {
-    return get().totalCompleted;
+  public static function getTotalFinished():Int {
+    return get().totalFinished;
   }
 
   /**
    * クリア回数を加算する
    **/
-  public static function addTotalCompleted():Void {
-    get().totalCompleted++;
+  public static function addTotalFinished():Void {
+    get().totalFinished++;
   }
 
   /**

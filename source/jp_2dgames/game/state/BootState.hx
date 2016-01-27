@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.util.Save;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.game.state.PlayInitState;
 import flixel.FlxG;
@@ -18,6 +19,9 @@ class BootState extends FlxState {
 
     // グローバル初期化
     Global.init();
+
+    // セーブデータの読み込み
+    Save.load(false, false);
   }
 
   /**

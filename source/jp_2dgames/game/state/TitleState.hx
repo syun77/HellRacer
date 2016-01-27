@@ -47,7 +47,7 @@ class TitleState extends FlxState {
     {
       var px = FlxG.width/2;
       var py = FlxG.height/2 * 1.7;
-      var btn = new MyButton2(px, py, "Statistics", function() {
+      var btn = new MyButton2(px, py, "Options", function() {
         FlxG.switchState(new StatisticsState());
       });
       btn.x -= btn.width/2;

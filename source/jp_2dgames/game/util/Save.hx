@@ -103,9 +103,12 @@ class Save {
       s.load(data);
     }
     else {
-      var data = Json.parse(saveutil.data.playdata);
-      var s = new _SaveData();
-      s.load(data);
+      if(saveutil.data != null && saveutil.data.playdata != null) {
+        // セーブデータが存在するので読み込みできる
+        var data = Json.parse(saveutil.data.playdata);
+        var s = new _SaveData();
+        s.load(data);
+      }
     }
   }
 

@@ -21,15 +21,8 @@ class StatisticsUI extends FlxSpriteGroup {
   static inline var TEXT_DY = 32;
   static inline var TEXT_SIZE = 16;
 
-  var txtHiScore:FlxText;
-  var txtTotalTimePlayed:FlxText;
-  var txtTotalDeath:FlxText;
-  var txtTotalCompleted:FlxText;
-  var txtTotalMileage:FlxText;
-  var txtLongestMileage:FlxText;
-  var txtAverageOfMileage:FlxText;
-
   var _txtList:List<FlxText>;
+
   /**
    * コンストラクタ
    **/
@@ -46,7 +39,7 @@ class StatisticsUI extends FlxSpriteGroup {
     py += TEXT_DY;
     _addText(px, py, 'Death: ${PlayData.getTotalDeath()}');
     py += TEXT_DY;
-    _addText(px, py, 'Completed: ${PlayData.getTotalCompleted()}');
+    _addText(px, py, 'Finished: ${PlayData.getTotalFinished()}');
     py += TEXT_DY;
     _addText(px, py, 'Total: ${PlayData.getTotalMileage()}mi');
     py += TEXT_DY;

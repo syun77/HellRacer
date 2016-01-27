@@ -228,6 +228,9 @@ class PlayState extends FlxState {
     // リザルト表示
     var result = new ResultUI(param);
     this.add(result);
+
+    // セーブデータに保存する
+    Save.save(false, false);
   }
 
   /**
@@ -244,11 +247,11 @@ class PlayState extends FlxState {
         _change(State.Gameover);
         Snd.stopMusic();
 
-        // リザルトチェック
-        _checkResult();
-
         // ゲームオーバー回数を増やす
         PlayData.addTotalDeath();
+
+        // リザルトチェック
+        _checkResult();
 
         // 画面を揺らす
         FlxG.camera.flash();
@@ -259,17 +262,16 @@ class PlayState extends FlxState {
 
       case SeqMgr.RET_GOAL:
         // ゴールにたどりついた
-        // 時間切れ
         _change(State.Gameover);
+
+        // クリア回数を増やす
+        PlayData.addTotalFinished();
 
         // リザルトチェック
         _checkResult();
 
-        // クリア回数を増やす
-        PlayData.addTotalCompleted();
-
         _player.active = false;
-        _captionUI.show("COMPLETE!");
+        _captionUI.show("FINISH!");
         _showButton();
     }
   }
