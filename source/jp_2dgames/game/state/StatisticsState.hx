@@ -44,9 +44,7 @@ class StatisticsState extends FlxState {
       var px = FlxG.width;
       var py = 8;
       var btn = new FlxButton(px, py, "DELETE", function() {
-        Save.erase();
-        Global.init();
-        FlxG.switchState(new StatisticsState());
+        openSubState(new DialogSubState());
       });
       btn.x -= btn.width + 8;
       this.add(btn);
