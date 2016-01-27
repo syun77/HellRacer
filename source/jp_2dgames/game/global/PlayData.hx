@@ -1,11 +1,11 @@
 package jp_2dgames.game.global;
 
+import jp_2dgames.lib.TextUtil;
+import flixel.FlxG;
+
 /**
  * プレイデータ
  **/
-import jp_2dgames.lib.TextUtil;
-import openfl._internal.renderer.opengl.shaders.StripShader;
-import flixel.FlxG;
 class PlayData {
 
   public var hiscore:Int           = 0; // ハイスコア

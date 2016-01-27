@@ -66,7 +66,7 @@ class Coin extends Token {
     // スコア演出
     var px = xcenter;
     var py = ycenter;
-    ParticleScore.start(px, py, Item.SCORE);
+    ParticleScore.start(px, py, SCORE);
     // エフェクト
     Particle.start(PType.Ring, px, py, FlxColor.YELLOW);
 
