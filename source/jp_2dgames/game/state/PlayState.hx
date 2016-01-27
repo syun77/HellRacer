@@ -179,6 +179,14 @@ class PlayState extends FlxState {
    **/
   private function _change(s:State):Void {
     _state = s;
+
+    switch(s) {
+      case State.Init:
+      case State.Main:
+      case State.Gameover:
+        // 制限時間を停止する
+        LimitMgr.pause();
+    }
   }
 
   /**
