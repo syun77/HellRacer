@@ -2,14 +2,14 @@
 <project>
     <!------------------------------APPLICATION SETTINGS---------------------------->
 
-    <app title="HellRacer" file="HellRacer" main="Main" version="0.0.1" company="2dgames.jp"/>
+    <app title="HellRacer" file="HellRacer" main="Main" version="1.0.0" company="2dgames.jp"/>
 
     <!-- For Android -->
     <meta title="HellRacer" package="jp_2dgames.hellracer" version="1.0.0" company="2dgames.jp" if="android" />
     <android target-sdk-version="16" />
 
     <!-- For iOS -->
-    <meta title="HellRacer" package="jp.2dgames.test" version="1.0.0" company="2dgames.jp" unless="android"/>
+    <meta title="HellRacer" package="jp.2dgames.hellracer" version="1.0.0" company="2dgames.jp" unless="android"/>
     <ios deployment="5" binaries="arm7" devices="iphone"/>
     <ios linker-flags="" prerenderd-icon="false"/>
     <window hardware="true" allow-shaders="true" require-shaders="true" if="cpp"/>
