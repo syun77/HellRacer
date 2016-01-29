@@ -1,4 +1,6 @@
 package jp_2dgames.game.state;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import jp_2dgames.game.gui.MyFlxButton;
 import openfl.Lib;
 import openfl.net.URLRequest;
@@ -30,6 +32,10 @@ class TitleState extends FlxState {
 
     var bg = new FlxSprite(0, 200).makeGraphic(FlxG.width, 60, FlxColor.WHITE);
     bg.alpha = 0.3;
+    {
+      bg.scale.y = 0;
+      FlxTween.tween(bg.scale, {y:1}, 0.5, {ease:FlxEase.expoOut});
+    }
     this.add(bg);
 
     this.add(new FlxSprite(0, FlxG.height/2-120, Reg.PATH_IMAGE_TITLE));
@@ -38,7 +44,7 @@ class TitleState extends FlxState {
     {
       var px = FlxG.width/2;
       var py = FlxG.height/2 * 1.5;
-      var btn = new MyButton2(px, py, "Click to START", function() {
+      var btn = new MyButton2(px, py, "Tap to START", function() {
         FlxG.switchState(new PlayInitState());
       });
       btn.x -= btn.width/2;

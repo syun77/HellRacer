@@ -287,7 +287,7 @@ class PlayState extends FlxState {
     }
     var px = FlxG.width/2;
     var py = FlxG.height/2 + 32;
-    var btn = new MyButton2(px, py, "Back to  TITLE ", cbFunc);
+    var btn = new MyButton2(px, py, "Back to TITLE", cbFunc);
     btn.x -= btn.width/2;
     btn.y -= btn.height/2;
     this.add(btn);

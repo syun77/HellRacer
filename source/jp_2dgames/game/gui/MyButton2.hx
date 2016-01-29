@@ -25,22 +25,22 @@ class MyButton2 extends FlxTypedButton<FlxText> {
 
   // フォント
   static inline var FONT_WIDTH            = WIDTH-4; // 幅
-  static inline var FONT_SIZE:Int         = 10; // フォントサイズ
-  static inline var TEXT_COLOR:Int        = FlxColor.BLACK; // フォントの色
+  static inline var FONT_SIZE:Int         = 8; // フォントサイズ
+  static inline var TEXT_COLOR:Int        = 0x333333; // フォントの色
   static inline var TEXT_BORDER_TYPE:Int  = FlxText.BORDER_NONE;//FlxText.BORDER_SHADOW; // 影をつける
   static inline var TEXT_BORDER_COLOR:Int = FlxColor.WHITE; // フォント縁取りの色
   static inline var SCROLL_ENABLE:Bool    = false; // スクロールしない
 
 
   // ラベルオフセット (ボタン画像からテキストの位置をずらす量)
-  private static inline var LABEL_OFS_X:Int = -1;
-  private static inline var LABEL_OFS_Y:Int = 3 + 2;
+  private static inline var LABEL_OFS_X:Int = 1;
+  private static inline var LABEL_OFS_Y:Int = 6 + 2;
 
   // サウンド
   static inline var SOUND_ON_DOWN:String = "push"; // クリック時の音
 
   // 日本語フォント設定
-  static inline var JP_ENABLE:Bool = true; // 使用するかどうか
+  static inline var JP_ENABLE:Bool = false; // 使用するかどうか
   static inline var JP_PATH_FONT:String = "assets/font/PixelMplus10-Regular.ttf"; // フォントのパス
   // =======================================================================
 
@@ -154,8 +154,9 @@ class MyButton2 extends FlxTypedButton<FlxText> {
 
   private inline function initLabel(Text:String):Void
   {
-    label = new FlxText(x + labelOffsets[NORMAL].x, y + labelOffsets[NORMAL].y, FONT_WIDTH, Text, FONT_SIZE);
-    label.alignment = "center";
+    label = new FlxText(x + labelOffsets[NORMAL].x, y + labelOffsets[NORMAL].y, FONT_WIDTH, Text);
+    label.setFormat(null, FONT_SIZE, TEXT_COLOR, "center");
+    label.alpha = labelAlphas[status];
 
     if(JP_ENABLE) {
       // 日本語フォント設定
