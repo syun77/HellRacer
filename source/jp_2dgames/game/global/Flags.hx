@@ -4,14 +4,19 @@ package jp_2dgames.game.global;
  * フラグ管理
  **/
 class Flags {
+
+  // フラグの用途
+  public static inline var TUTORIAL:Int = 0; // チュートリアル
+
+  // フラグ最大数
   public static inline var MAX:Int = 32;
 
-  public function check(idx:Int):Bool {
-    return Global.getFlags().check(idx);
+  public static function check(idx:Int):Bool {
+    return Global.getFlags()._check(idx);
   }
 
-  public function on(idx:Int):Void {
-    Global.getFlags().on(idx);
+  public static function on(idx:Int):Void {
+    Global.getFlags()._on(idx);
   }
 
 
@@ -34,7 +39,7 @@ class Flags {
    **/
   public function copy(src:Flags):Void {
     for(i in 0...MAX) {
-      _set(i, src.check(i));
+      _set(i, src._check(i));
     }
   }
 

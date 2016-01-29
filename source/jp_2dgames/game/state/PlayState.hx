@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.global.Flags;
 import jp_2dgames.game.gui.ResultUI;
 import jp_2dgames.game.gui.MyButton2;
 import jp_2dgames.game.token.Coin;
@@ -31,6 +32,8 @@ import flixel.FlxState;
  **/
 private enum State {
   Init;     // 初期化
+  Start;    // 開始
+  StartWait;// 開始待ち
   Main;     // メイン
   Gameover; // ゲームオーバー
 }
@@ -125,12 +128,15 @@ class PlayState extends FlxState {
     // 鉄球を出現させておく
     _levelMgr.update();
 
-    _captionUI.show("READY");
-    Snd.playSe("levelup");
-    new FlxTimer(2, function(timer:FlxTimer) {
-//      _start(3);
-      _start(0);
-    });
+    _change(State.Init);
+
+    // チュートリアル表示チェック
+    if(Flags.check(Flags.TUTORIAL) == false) {
+      // チュートリアル表示
+      openSubState(new TutorialSubState());
+      // 閲覧済みフラグを立てておく
+      Flags.on(Flags.TUTORIAL);
+    }
   }
 
   /**
@@ -182,6 +188,8 @@ class PlayState extends FlxState {
 
     switch(s) {
       case State.Init:
+      case State.Start:
+      case State.StartWait:
       case State.Main:
       case State.Gameover:
         // 制限時間を停止する
@@ -197,6 +205,21 @@ class PlayState extends FlxState {
 
     switch(_state) {
       case State.Init:
+        if(subState == null) {
+          _change(State.Start);
+        }
+
+      case State.Start:
+        _captionUI.show("READY");
+        Snd.playSe("levelup");
+        new FlxTimer(2, function(timer:FlxTimer) {
+          //      _start(3);
+          _start(0);
+        });
+        _change(State.StartWait);
+
+      case State.StartWait:
+
       case State.Main:
         _updateMain();
       case State.Gameover:

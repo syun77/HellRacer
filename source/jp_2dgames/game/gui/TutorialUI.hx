@@ -1,4 +1,9 @@
 package jp_2dgames.game.gui;
+import flixel.group.FlxSpriteGroup;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
@@ -6,10 +11,16 @@ import flixel.group.FlxGroup;
 /**
  * チュートリアルUI
  **/
-class TutorialUI extends FlxGroup {
+class TutorialUI extends FlxSpriteGroup {
   public function new(cbClose:Void->Void) {
 
     super();
+
+    // 暗転背景
+    var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+    bg.alpha = 0.0;
+    FlxTween.tween(bg, {alpha:0.5}, 1, {ease:FlxEase.expoOut});
+    this.add(bg);
 
     // TODO: テキストを表示
     var px = 0;
@@ -25,5 +36,8 @@ class TutorialUI extends FlxGroup {
     });
     btn.x -= btn.width/2;
     this.add(btn);
+
+    // スクロール無効
+    scrollFactor.set();
   }
 }
