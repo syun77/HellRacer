@@ -132,8 +132,10 @@
     
     <icon path="icon/Icon-Small.png" size="29" />
     <icon path="icon/Icon-Small@2x.png" size="58" />
+    <icon path="icon/Icon-Small@3x.png" size="87" />
     <icon path="icon/Icon-Small-40.png" size="40" />
     <icon path="icon/Icon-Small-40@2x.png" size="80" />
+    <icon path="icon/Icon-Small-40@3x.png" size="120" />
     <icon path="icon/Icon-Small-50.png" size="50" />
     <icon path="icon/Icon-Small-50@2x.png" size="100" />
     <icon path="icon/Icon.png" size="57" />
