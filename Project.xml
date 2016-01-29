@@ -11,7 +11,7 @@
 
     <!-- For iOS -->
     <meta title="HellRacer" package="jp.2dgames.hellracer" version="1.0.0" company="2dgames.jp" unless="android"/>
-    <ios deployment="5" binaries="arm7" devices="iphone"/>
+    <ios deployment="6" binaries="arm7" devices="iphone"/>
     <ios linker-flags="" prerenderd-icon="false"/>
     <window hardware="true" allow-shaders="true" require-shaders="true" if="cpp"/>
     <window vsync="true" antialiasing="4" if="cpp"/>
