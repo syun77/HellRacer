@@ -1,10 +1,10 @@
 package jp_2dgames.game.token;
 
+import flixel.FlxState;
 import flixel.util.FlxColor;
 import jp_2dgames.game.particle.Particle;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.game.particle.ParticleScore;
-import flixel.FlxState;
 
 /**
  * コイン
@@ -60,13 +60,19 @@ class Coin extends Token {
    **/
   public function vanish():Void {
 
+    var score = SCORE;
+    var combo = Global.getCombo();
+    if(combo > 0) {
+      score += 50 * combo;
+    }
+
     // スコア加算
-    Global.addScore(SCORE);
+    Global.addScore(score);
 
     // スコア演出
     var px = xcenter;
     var py = ycenter;
-    ParticleScore.start(px, py, SCORE);
+    ParticleScore.start(px, py, score);
     // エフェクト
     Particle.start(PType.Ring, px, py, FlxColor.YELLOW);
 
