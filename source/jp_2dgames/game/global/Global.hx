@@ -165,4 +165,11 @@ class Global {
   public static function resetCombo():Void {
     _combo = 0;
   }
+
+  /**
+   * 最大コンボ数を取得する
+   **/
+  public static function getMaxCombo():Int {
+    return _maxCombo;
+  }
 }

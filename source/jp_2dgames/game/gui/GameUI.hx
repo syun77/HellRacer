@@ -20,6 +20,7 @@ class GameUI extends FlxSpriteGroup {
   var _txtLimit:FlxText;
   var _txtScore:FlxText;
   var _txtSpeed:FlxText;
+  var _txtCombo:FlxText;
 
   var _funcSpeed:Void->Float;
 
@@ -49,6 +50,12 @@ class GameUI extends FlxSpriteGroup {
     // 残り時間
     _txtLimit = new FlxText(px, py);
     txtList.add(_txtLimit);
+    py += TEXT_DY;
+
+    // コンボ
+    _txtCombo = new FlxText(px, py);
+    txtList.add(_txtCombo);
+    py += TEXT_DY;
 
     for(txt in txtList) {
       this.add(txt);
@@ -77,5 +84,8 @@ class GameUI extends FlxSpriteGroup {
     if(LimitMgr.isDanger()) {
       _txtLimit.color = FlxColor.RED;
     }
+
+    // コンボ数を更新
+    _txtCombo.text = 'Combo: ${Global.getCombo()}/${Global.getMaxCombo()}';
   }
 }

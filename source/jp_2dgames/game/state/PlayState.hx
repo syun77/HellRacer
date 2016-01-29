@@ -225,6 +225,11 @@ class PlayState extends FlxState {
       param.mileageNew = true;
     }
 
+    // コンボ更新
+    if(PlayData.setMaxCombo(Global.getMaxCombo())) {
+      // TODO: 記録更新
+    }
+
     // リザルト表示
     var result = new ResultUI(param);
     this.add(result);

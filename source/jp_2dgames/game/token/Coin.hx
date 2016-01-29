@@ -75,15 +75,12 @@ class Coin extends Token {
   }
 
   /**
-   * 更新
+   * 画面外に出た
    **/
-  public override function update():Void {
-    super.update();
-
-    if(isOutside()) {
-      // 画面外に出たので消滅
-      kill();
-    }
+  public function onOutside():Void {
+    // コンボリセット
+    Global.resetCombo();
+    kill();
   }
 }
 

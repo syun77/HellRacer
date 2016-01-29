@@ -117,8 +117,14 @@ class SeqMgr {
         coin.vanish();
 
         PlayData.addTotalCoin();
+        // コンボ増加
+        Global.addCombo();
 
         Snd.playSe("coin");
+      }
+      else if(coin.y-coin.height*2 > _player.y) {
+        // 取り逃した
+        coin.onOutside();
       }
     });
 
