@@ -22,6 +22,8 @@ class Reg {
   public static inline var PATH_IMAGE_CHAR_SET = "assets/images/charset.png";
   // ゴール
   public static inline var PATH_IMAGE_GOAL = "assets/images/checker.png";
+  // チュートリアル画像
+  public static inline var PATH_IMAGE_TUTORIAL = "assets/images/ui/tutorial.png";
 
   // セーブデータ保存先
   public static inline var PATH_SAVE = "/Users/syun/Desktop/HellRacer/save.txt";

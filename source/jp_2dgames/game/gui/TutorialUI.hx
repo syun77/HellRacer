@@ -22,12 +22,28 @@ class TutorialUI extends FlxSpriteGroup {
     FlxTween.tween(bg, {alpha:0.5}, 1, {ease:FlxEase.expoOut});
     this.add(bg);
 
-    // TODO: テキストを表示
-    var px = 0;
-    var py = 80;
-    var txt = new FlxText(px, py, FlxG.width, "Tutorial Message");
-    txt.alignment = "center";
-    this.add(txt);
+    // チュートリアル画像表示
+    {
+      var image = new FlxSprite(0, 0, Reg.PATH_IMAGE_TUTORIAL);
+      var scale = 0.8;
+      image.scale.set(scale, scale);
+      this.add(image);
+
+      image.x = FlxG.width/2 - (image.width/2);
+      image.y = 48;
+    }
+
+    // テキストを表示
+    {
+      var px = 60;
+      var py = 88;
+      var txt = new FlxText(px, py, FlxG.width-60*2, "Turn the steering wheel to the right [left],
+then the car turn.");
+      txt.alignment = "center";
+      txt.setBorderStyle(FlxText.BORDER_OUTLINE);
+      this.add(txt);
+
+    }
 
     // ボタン
     var btn = new MyButton2(FlxG.width/2, FlxG.height*0.7, "OK", function() {
