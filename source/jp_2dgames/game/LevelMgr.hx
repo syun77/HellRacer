@@ -226,7 +226,7 @@ class LevelMgr extends FlxBasic {
     // コインも出現させる
     var pt = layer.searchRandom(CHIP_COIN);
     if(pt != null) {
-      trace("coin", path, pt.x, pt.y);
+      // trace("coin", path, pt.x, pt.y);
       pt.y = (tmx.height - pt.y) - 1;
       var x = _chipToX(Std.int(pt.x));
       var y = _chipToY(Std.int(pt.y));
