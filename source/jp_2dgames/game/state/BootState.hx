@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.lib.Snd;
 import jp_2dgames.game.util.Save;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.game.state.PlayInitState;
@@ -22,6 +23,9 @@ class BootState extends FlxState {
 
     // セーブデータの読み込み
     Save.load(false, false);
+
+    // BGMキャッシュ
+    Snd.cache("001");
   }
 
   /**
