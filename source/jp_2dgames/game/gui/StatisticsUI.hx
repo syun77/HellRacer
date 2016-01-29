@@ -33,9 +33,13 @@ class StatisticsUI extends FlxSpriteGroup {
 
     var px = TEXT_X;
     var py = TEXT_Y;
+    _addText(px, py, 'Time Played: ${PlayData.getTotalTimePlayedStr()}');
+    py += TEXT_DY;
     _addText(px, py, 'Hi-Score: ${PlayData.getHiscore()}');
     py += TEXT_DY;
-    _addText(px, py, 'Time Played: ${PlayData.getTotalTimePlayedStr()}');
+    _addText(px, py, 'Max Combo: ${PlayData.getMaxCombo()}');
+    py += TEXT_DY;
+    _addText(px, py, 'Coin: ${PlayData.getTotalCoin()}');
     py += TEXT_DY;
     _addText(px, py, 'Death: ${PlayData.getTotalDeath()}');
     py += TEXT_DY;

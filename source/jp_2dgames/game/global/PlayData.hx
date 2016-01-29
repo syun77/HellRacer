@@ -8,12 +8,14 @@ import flixel.FlxG;
  **/
 class PlayData {
 
-  public var hiscore:Int           = 0; // ハイスコア
+  public var hiscore:Int           = 0;   // ハイスコア
   public var totalTimePlayed:Float = 0.0; // プレイ時間
-  public var totalDeath:Int        = 0; // 死亡回数
-  public var totalFinished:Int     = 0; // クリア回数
+  public var totalDeath:Int        = 0;   // 死亡回数
+  public var totalFinished:Int     = 0;   // クリア回数
   public var totalMileage:Float    = 0.0; // 総走行距離
   public var longestMileage:Float  = 0.0; // 最長走行距離
+  public var totalCoin:Int         = 0;   // コイン獲得枚数
+  public var maxCombo:Int          = 0;   // 最大コンボ
 
   public function new() {
     // プレイデータ初期化
@@ -26,6 +28,12 @@ class PlayData {
     totalFinished   = data.totalFinished;
     totalMileage    = data.totalMileage;
     longestMileage  = data.longestMileage;
+    if(data.totalCoin != null) {
+      totalCoin = data.totalCoin;
+    }
+    if(data.maxCombo != null) {
+      maxCombo = data.maxCombo;
+    }
   }
 
   // ===========================================
@@ -176,5 +184,43 @@ class PlayData {
     var ret = d.totalMileage / count;
     // 小数点第二位より下を切り捨て
     return Math.floor(ret * 100) / 100;
+  }
+
+  /**
+   * コイン獲得枚数を取得する
+   **/
+  public static function getTotalCoin():Int {
+    var d = get();
+    return d.totalCoin;
+  }
+
+  /**
+  * コイン獲得枚数を加算する
+  **/
+  public static function addTotalCoin():Void {
+    var d = get();
+    d.totalCoin += 1;
+  }
+
+  /**
+   * 最大コンボ数を取得する
+   **/
+  public static function getMaxCombo():Int {
+    var d = get();
+    return d.maxCombo;
+  }
+
+  /**
+   * 最大コンボ数を設定する
+   **/
+  public static function setMaxCombo(combo:Int):Bool {
+    var d = get();
+    if(combo > d.maxCombo) {
+      // コンボ数を更新
+      d.maxCombo = combo;
+      return true;
+    }
+
+    return false;
   }
 }

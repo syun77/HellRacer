@@ -17,6 +17,11 @@ class Global {
   // 走行距離
   static var _mileage:Float;
 
+  // 現在のコンボ数
+  static var _combo:Int;
+  // 最大コンボ数
+  static var _maxCombo:Int;
+
   // フラグ
   static var _flags:Flags;
 
@@ -34,6 +39,8 @@ class Global {
   public static function start():Void {
     _level = 1;
     _mileage = 0;
+    _combo = 0;
+    _maxCombo = 0;
   }
 
   /**
@@ -41,6 +48,8 @@ class Global {
    **/
   public static function initLevel():Void {
     _score = 0;
+    _combo = 0;
+    _maxCombo = 0;
   }
 
   /**
@@ -127,5 +136,33 @@ class Global {
    **/
   public static function setFlags(src:Flags):Void {
     _flags.copy(src);
+  }
+
+  /**
+   * コンボ数を取得
+   **/
+  public static function getCombo():Int {
+    return _combo;
+  }
+
+  /**
+   * コンボ数を加算
+   **/
+  public static function addCombo():Int {
+    _combo++;
+    if(_combo > _maxCombo) {
+      // 最大コンボを更新
+      _maxCombo = _combo;
+    }
+
+    // 現在のコンボ数を返す
+    return _combo;
+  }
+
+  /**
+   * コンボ数をリセット
+   **/
+  public static function resetCombo():Void {
+    _combo = 0;
   }
 }

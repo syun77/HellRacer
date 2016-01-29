@@ -116,6 +116,8 @@ class SeqMgr {
         // コイン獲得
         coin.vanish();
 
+        PlayData.addTotalCoin();
+
         Snd.playSe("coin");
       }
     });
