@@ -3,6 +3,7 @@ package jp_2dgames.game;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxBasic;
+import jp_2dgames.lib.Snd;
 
 /**
  * 制限時間管理
@@ -51,11 +52,13 @@ class LimitMgr extends FlxBasic {
 
   var _time:Float = 0.0;
   var _bPause:Bool = false;
+  var _prevTime:Float = 0.0;
 
   public function new() {
     super();
 
     _time = LIMIT_TIME;
+    _prevTime = _time;
   }
 
   private function _set(v:Float):Void {
@@ -71,6 +74,12 @@ class LimitMgr extends FlxBasic {
     _time -= v;
     if(_time <= 0) {
       _time = 0;
+    }
+
+    if(_time < 10) {
+      if(Math.floor(_time) < Math.floor(_prevTime)) {
+        Snd.playSe("bi");
+      }
     }
   }
   private function _timesup():Bool {
@@ -88,5 +97,6 @@ class LimitMgr extends FlxBasic {
 
     // 時間経過
     _reduce(FlxG.elapsed);
+    _prevTime = _time;
   }
 }

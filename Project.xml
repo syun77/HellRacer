@@ -61,6 +61,8 @@
         <sound path="start.mp3" id="start"/>
         <sound path="push.mp3" id="push"/>
         <sound path="coin.mp3" id="coin"/>
+        <sound path="goal.mp3" id="goal"/>
+        <sound path="bi.mp3" id="bi"/>
     </assets>
     <assets path="assets/sounds" unless="flash" include="*.ogg">
         <sound path="destroy.ogg" id="destroy"/>
@@ -71,6 +73,8 @@
         <sound path="start.ogg" id="start"/>
         <sound path="push.ogg" id="push"/>
         <sound path="coin.ogg" id="coin"/>
+        <sound path="goal.ogg" id="goal"/>
+        <sound path="bi.ogg" id="bi"/>
     </assets>
 
     <!--------------------------------LIBRARIES------------------------------------->

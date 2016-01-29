@@ -17,6 +17,7 @@ import jp_2dgames.game.token.Item;
 import jp_2dgames.game.token.Enemy;
 import jp_2dgames.game.particle.ParticleScore;
 import jp_2dgames.lib.Snd;
+import jp_2dgames.lib.MyMath;
 import jp_2dgames.game.particle.Particle;
 import flixel.util.FlxTimer;
 import flixel.util.FlxPoint;
@@ -26,6 +27,9 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.FlxObject;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 /**
  * 状態
@@ -36,6 +40,7 @@ private enum State {
   StartWait;// 開始待ち
   Main;     // メイン
   Gameover; // ゲームオーバー
+  Gameclear;// ゲームクリア
 }
 
 /**
@@ -191,7 +196,7 @@ class PlayState extends FlxState {
       case State.Start:
       case State.StartWait:
       case State.Main:
-      case State.Gameover:
+      case State.Gameover, State.Gameclear:
         // 制限時間を停止する
         LimitMgr.pause();
     }
@@ -223,6 +228,14 @@ class PlayState extends FlxState {
       case State.Main:
         _updateMain();
       case State.Gameover:
+      case State.Gameclear:
+        // プレイヤーを動かす
+        {
+          // 前に進むようにする
+          _player.angle = -90;
+          _player.velocity.x *= 0.1;
+        }
+        _player.update();
     }
 
     _updateDebug();
@@ -290,7 +303,8 @@ class PlayState extends FlxState {
 
       case SeqMgr.RET_GOAL:
         // ゴールにたどりついた
-        _change(State.Gameover);
+        Snd.playSe("goal");
+        _change(State.Gameclear);
 
         // クリア回数を増やす
         PlayData.addTotalFinished();
@@ -301,6 +315,12 @@ class PlayState extends FlxState {
         _player.active = false;
         _captionUI.show("FINISH!");
         _showButton();
+
+        var obj = new FlxObject(_player.x, _player.y-48);
+        obj.velocity.set(0, _player.velocity.y);
+        FlxG.camera.follow(obj, FlxCamera.STYLE_TOPDOWN_TIGHT);
+        FlxTween.tween(obj.velocity, {y:_player.velocity.y*0.9}, 1, {ease:FlxEase.expoOut});
+        this.add(obj);
     }
   }
 
