@@ -17,11 +17,15 @@ class Global {
   // 走行距離
   static var _mileage:Float;
 
+  // フラグ
+  static var _flags:Flags;
+
   /**
    * 起動時に一度だけ呼び出される初期化
    **/
   public static function init():Void {
     _playData = new PlayData();
+    _flags = new Flags();
   }
 
   /**
@@ -109,5 +113,19 @@ class Global {
    **/
   public static function addMileage(v:Float):Void {
     _mileage += v;
+  }
+
+  /**
+   * フラグを取得する
+   **/
+  public static function getFlags():Flags {
+    return _flags;
+  }
+
+  /**
+   * フラグの値を設定する
+   **/
+  public static function setFlags(src:Flags):Void {
+    _flags.copy(src);
   }
 }
